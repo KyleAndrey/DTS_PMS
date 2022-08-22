@@ -27,7 +27,7 @@ CREATE TABLE `auth_group` (
   `name` varchar(150) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,7 +55,7 @@ CREATE TABLE `auth_group_permissions` (
   KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`),
   CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
   CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -82,7 +82,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +117,7 @@ CREATE TABLE `django_admin_log` (
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_system_customuser_id` FOREIGN KEY (`user_id`) REFERENCES `system_customuser` (`id`),
   CONSTRAINT `django_admin_log_chk_1` CHECK ((`action_flag` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,7 +143,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,7 +169,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,7 +195,7 @@ CREATE TABLE `django_session` (
   `expire_date` datetime(6) NOT NULL,
   PRIMARY KEY (`session_key`),
   KEY `django_session_expire_date_a5c62663` (`expire_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -238,7 +238,7 @@ CREATE TABLE `system_assigneditem` (
   CONSTRAINT `system_assigneditem_quotationFormID_id_28318843_fk_system_qu` FOREIGN KEY (`quotationFormID_id`) REFERENCES `system_quotationform` (`quotationFormID`),
   CONSTRAINT `system_assigneditem_salesInvFormID_id_20eae537_fk_system_sa` FOREIGN KEY (`salesInvFormID_id`) REFERENCES `system_salesinvform` (`salesInvID`),
   CONSTRAINT `system_assigneditem_unit_id_42f5b38b_fk_system_unit_unitID` FOREIGN KEY (`unit_id`) REFERENCES `system_unit` (`unitID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -271,7 +271,7 @@ CREATE TABLE `system_assignedtask` (
   KEY `system_assignedtask_taskID_id_f79af713_fk_system_task_id` (`taskID_id`),
   CONSTRAINT `system_assignedtask_projectID_id_86459a50_fk_system_project_id` FOREIGN KEY (`projectID_id`) REFERENCES `system_project` (`id`),
   CONSTRAINT `system_assignedtask_taskID_id_f79af713_fk_system_task_id` FOREIGN KEY (`taskID_id`) REFERENCES `system_task` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -303,7 +303,7 @@ CREATE TABLE `system_billinginvform` (
   PRIMARY KEY (`billingInvID`),
   KEY `system_billinginvform_clients_id_6c153e6f_fk_system_client_id` (`clients_id`),
   CONSTRAINT `system_billinginvform_clients_id_6c153e6f_fk_system_client_id` FOREIGN KEY (`clients_id`) REFERENCES `system_client` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -328,7 +328,7 @@ CREATE TABLE `system_businessstyle` (
   `businessStyleName` varchar(255) DEFAULT NULL,
   `is_inactive` tinyint(1) NOT NULL,
   PRIMARY KEY (`businessStyleID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -353,7 +353,7 @@ CREATE TABLE `system_category` (
   `categoryName` varchar(255) DEFAULT NULL,
   `is_inactive` tinyint(1) NOT NULL,
   PRIMARY KEY (`categoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -394,7 +394,7 @@ CREATE TABLE `system_client` (
   UNIQUE KEY `companyTIN` (`companyTIN`),
   KEY `system_client_businessStyle_id_bfa6727f_fk_system_bu` (`businessStyle_id`),
   CONSTRAINT `system_client_businessStyle_id_bfa6727f_fk_system_bu` FOREIGN KEY (`businessStyle_id`) REFERENCES `system_businessstyle` (`businessStyleID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -419,7 +419,7 @@ CREATE TABLE `system_content` (
   `contentName` varchar(255) DEFAULT NULL,
   `is_inactive` tinyint(1) NOT NULL,
   PRIMARY KEY (`contentID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -459,7 +459,7 @@ CREATE TABLE `system_customuser` (
   UNIQUE KEY `username` (`username`),
   KEY `system_customuser_department_id_2038396b_fk_system_department_id` (`department_id`),
   CONSTRAINT `system_customuser_department_id_2038396b_fk_system_department_id` FOREIGN KEY (`department_id`) REFERENCES `system_department` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -488,7 +488,7 @@ CREATE TABLE `system_customuser_groups` (
   KEY `system_customuser_groups_group_id_352c00a8_fk_auth_group_id` (`group_id`),
   CONSTRAINT `system_customuser_gr_customuser_id_9a75976c_fk_system_cu` FOREIGN KEY (`customuser_id`) REFERENCES `system_customuser` (`id`),
   CONSTRAINT `system_customuser_groups_group_id_352c00a8_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -516,7 +516,7 @@ CREATE TABLE `system_customuser_user_permissions` (
   KEY `system_customuser_us_permission_id_df394679_fk_auth_perm` (`permission_id`),
   CONSTRAINT `system_customuser_us_customuser_id_0619ec9d_fk_system_cu` FOREIGN KEY (`customuser_id`) REFERENCES `system_customuser` (`id`),
   CONSTRAINT `system_customuser_us_permission_id_df394679_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -544,7 +544,7 @@ CREATE TABLE `system_deliveryreceipt` (
   PRIMARY KEY (`deliveryRecID`),
   KEY `system_deliveryreceipt_clients_id_c02f4a65_fk_system_client_id` (`clients_id`),
   CONSTRAINT `system_deliveryreceipt_clients_id_c02f4a65_fk_system_client_id` FOREIGN KEY (`clients_id`) REFERENCES `system_client` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -569,7 +569,7 @@ CREATE TABLE `system_department` (
   `departmentName` varchar(255) DEFAULT NULL,
   `is_inactive` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -604,7 +604,7 @@ CREATE TABLE `system_filemodel` (
   CONSTRAINT `system_filemodel_clientID_id_77a9df05_fk_system_client_id` FOREIGN KEY (`clientID_id`) REFERENCES `system_client` (`id`),
   CONSTRAINT `system_filemodel_fileCategory_id_bc317085_fk_system_ca` FOREIGN KEY (`fileCategory_id`) REFERENCES `system_category` (`categoryID`),
   CONSTRAINT `system_filemodel_fileContent_id_77077865_fk_system_co` FOREIGN KEY (`fileContent_id`) REFERENCES `system_content` (`contentID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -633,7 +633,7 @@ CREATE TABLE `system_filemodel_fileTag` (
   KEY `system_filemodel_fileTag_tag_id_beabbc40_fk_system_tag_tagID` (`tag_id`),
   CONSTRAINT `system_filemodel_fil_filemodel_id_024310b3_fk_system_fi` FOREIGN KEY (`filemodel_id`) REFERENCES `system_filemodel` (`fileID`),
   CONSTRAINT `system_filemodel_fileTag_tag_id_beabbc40_fk_system_tag_tagID` FOREIGN KEY (`tag_id`) REFERENCES `system_tag` (`tagID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -664,7 +664,7 @@ CREATE TABLE `system_formalletter` (
   `position` varchar(20) DEFAULT NULL,
   `body` longtext,
   PRIMARY KEY (`formalID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -691,7 +691,7 @@ CREATE TABLE `system_item` (
   `itemType` varchar(20) DEFAULT NULL,
   `is_inactive` tinyint(1) NOT NULL,
   PRIMARY KEY (`itemID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -728,7 +728,7 @@ CREATE TABLE `system_project` (
   PRIMARY KEY (`id`),
   KEY `system_project_clients_id_a81d2ff0_fk_system_client_id` (`clients_id`),
   CONSTRAINT `system_project_clients_id_a81d2ff0_fk_system_client_id` FOREIGN KEY (`clients_id`) REFERENCES `system_client` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -753,7 +753,7 @@ CREATE TABLE `system_projecttype` (
   `projectTypeName` varchar(255) DEFAULT NULL,
   `is_inactive` tinyint(1) NOT NULL,
   PRIMARY KEY (`projectTypeID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -790,7 +790,7 @@ CREATE TABLE `system_quotationform` (
   `validityTerms` varchar(100) DEFAULT NULL,
   `warrantyTerms` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`quotationFormID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -822,7 +822,7 @@ CREATE TABLE `system_salesinvform` (
   PRIMARY KEY (`salesInvID`),
   KEY `system_salesinvform_clients_id_af454c4f_fk_system_client_id` (`clients_id`),
   CONSTRAINT `system_salesinvform_clients_id_af454c4f_fk_system_client_id` FOREIGN KEY (`clients_id`) REFERENCES `system_client` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -847,7 +847,7 @@ CREATE TABLE `system_tag` (
   `tagName` varchar(255) DEFAULT NULL,
   `is_inactive` tinyint(1) NOT NULL,
   PRIMARY KEY (`tagID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -874,7 +874,7 @@ CREATE TABLE `system_task` (
   `has_file` tinyint(1) NOT NULL,
   `is_inactive` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -899,7 +899,7 @@ CREATE TABLE `system_unit` (
   `unitName` varchar(255) DEFAULT NULL,
   `is_inactive` tinyint(1) NOT NULL,
   PRIMARY KEY (`unitID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
