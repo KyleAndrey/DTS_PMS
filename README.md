@@ -57,7 +57,7 @@ The method of setting up a local version of the system can be broken down into t
 
 There are 3 things within the DTS_ManagementSystem directory that you should take note of.
 
-- **`DTS Folder`** -> The project folder which contains the settings.py, urls.py and other files that define a django project. There should only be one project folder inside a certain project.
+- **`DTS Folder`** -> The project folder which contains the settings.py, urls.py and other files that define a **Django** project. There should only be one project folder inside a certain project.
 
 - **`system Folder`** -> An app folder which contains the files you will be working with the most. There can be multiple of these app folders in a project, each should have a different name and must be referenced in the settings.py.
 
