@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% block title %}Client{% endblock %}
+{% load static %}
+{% block body %}
+<div class="container-fluid justify-content-end">
+	<div class="row main justify-content-between">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<h3 class="pageHeader"><a href="{% url 'clients' %}"><span class="fa fa-arrow-circle-left mr-3"></span></a> {{ client.companyName }}</h3>
+		</div>
+	
+	</div>
+
+	<div class="row sub justify-content-between">
+		<div class="col-sm-12 col-md-8 col-lg-8">
+			<div class="cardNewProject po animate slide delay-1">
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						
+						<h5 class="formSection1 po"><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;&nbsp;Client Details</h5>								
+					</div>
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<div class="dropdown po">
+							<i class="fa fa-ellipsis-h dropdown-toggle po" aria-hidden="true" type="button" id="dropdownCenterBtn" data-bs-toggle="dropdown" aria-expanded="false"></i>
+							<ul class="dropdown-menu po" aria-labelledby="dropdownMenuButton1">
+								<li><a class="dropdown-item po" href="{% url 'editClient' %}">Edit</a></li>
+								<li><a class="dropdown-item po" data-bs-toggle="modal" data-bs-target="#removeClient">Set as Inactive</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				{% if client %}
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<br><br>
+							<h5 class="profileHeader">Company Name</h5>
+							{{ client.companyName }}
+						</div>
+						
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<br><br>
+							<h5 class="profileHeader">Business Style</h5>
+							{{ client.businessStyle }}
+						</div>
+					</div>
+
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-12 col-lg-12">
+							<br><br>
+							<h5 class="profileHeader">Company Address</h5>
+							{{ client.companyAddress }}
+							<br>
+							{{ client.barangay }}, {{ client.city }}, {{ client.province }}, {{ client.region }}, {{ client.postalCode }}
+						</div>
+					</div>
+
+					<br>
+							
+							
+							
+							
+							
+
+
+					<!-- <div class="row justify-content-between">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<h6 class="profileHeader">Street Name/Building/House Number</h6>
+							{{ client.companyAddress }}
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<h6 class="profileHeader">Municipality</h6>
+							{{ client.city }}
+							
+						</div>
+					</div>
+
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<h6 class="profileHeader">Province</h6>
+							{{ client.province }}
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<h6 class="profileHeader">Region</h6>
+							{{ client.region }}
+						</div>
+					</div>
+
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<h6 class="profileHeader">Barangay</h6>
+							{{ client.barangay }}
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<h6 class="profileHeader">Postal Code</h6>
+							{{ client.postalCode }}
+						</div>
+					</div> -->
+
+					
+
+					<hr class="dividerNewProject po">
+
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							
+							<h5 class="formSection1 po"><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;&nbsp;Contact Person Details</h5>								
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-6"></div>
+					</div>
+
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<br><br>
+							<h5 class="profileHeader">Contact Person</h5>
+							{{ client.contactPerson }}
+						</div>
+						
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<br><br>
+							<h5 class="profileHeader">Contact Number</h5>
+							{{ client.contactNumber }}
+						</div>
+					</div>
+
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<br><br>
+							<h5 class="profileHeader">Position</h5>
+							{{ client.contactPosition }}
+						</div>
+						
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<!-- <br><br><br><br>
+							<label for="companyName" class="form-label">Business Style*</label>
+							<input type="text" class="form-control" id="companyName" aria-describedby="companyNameHelp" required> -->
+						</div>
+					</div>
+				{% endif %}
+				<br><br>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-4 col-lg-4 illustration1">
+
+		</div>
+	</div>
+	<br><br><br><br>
+
+	<div class="modal fade" id="removeClient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<form method="POST">
+				{% csrf_token %}
+					<div class="modal-content">
+						<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Set Client as Inactive</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+
+						<div class="modal-body">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-md-12 ms-auto">
+										<label for="companyName" class="form-label">Are you sure you want to set the client as inactive?</label>
+										<br>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary po" data-bs-dismiss="modal">No</button>
+							<button type="submit" class="btn btn-primary po">Yes</button>
+						</div>
+					</div>
+			</form>
+		</div>
+	</div>
+
+</div>
+{% endblock body %}

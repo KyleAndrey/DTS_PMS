@@ -1,0 +1,91 @@
+{% extends 'baseAdmin.html' %}
+{% block title %}Active Users{% endblock %}
+{% load static %} 
+{% block body %}
+<div class="container-fluid justify-content-end">
+	<div class="row main justify-content-between">
+		<div class="col-sm-12 col-md-4 col-lg-4">
+			<h3 class="pageHeader"><i class="fa-solid fa-user-check"></i>&nbsp;&nbsp;Active Users&nbsp;&nbsp;
+
+			</h3>
+		</div>
+		<div class="col-sm-12 col-md-5 col-lg-5">
+			<!-- <div class="input-group">
+				<input type="text" class="form-control search" placeholder="Search..." aria-label="First name">
+				<button type="submit" class="buttonSearch fa-solid fa-magnifying-glass"></button>
+			</div> -->
+		</div>
+		<div class="col-sm-12 col-md-3 col-lg-3">
+		</div>
+	</div>
+	<br>
+
+	<div class="row sub justify-content-between  animate slide delay-3">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<div class ="reportsList">
+				<table class="table table-hover" id="tableAll">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Account Type</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in activeUsers %}
+							<tr>
+								<td>{{ user.first_name }} {{ user.last_name }}</td>
+								<td>{{ user.email }}</td>
+								<td>{{ user.accountType }}</td>
+								<td>
+									{% if request.user.pk != user.pk %}
+										<form method="POST" style="display: inline-block">
+											{% csrf_token %}
+											<button type="submit" class="circleButton" name="pen" value="{{ user.pk }}"><i class="fa-solid fa-pen" aria-hidden="true"></i></button>
+										</form>
+										<button data-id="{{ user.pk }}" data-bs-toggle="modal" data-bs-target="#setasinactive" id="removeRow" class="setSquare fa fa-minus-square setasinactiveClass"></button>
+									{% else %}
+										<button onclick="location.href = '{% url 'adminEditProfile' %}';" class="circleButton"><i class="fa-solid fa-pen" aria-hidden="true"></i></button>
+									{% endif %}
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div><br><br>
+	<div class="modal fade" id="setasinactive" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<form method="POST">
+				{% csrf_token %}
+				{{ form.errors }}
+				{{ form.non_field_errors }}
+				<div class="modal-content">
+					<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Set User as Inactive</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-12 ms-auto">
+									<label for="companyName" class="form-label">Are you sure you want to set the user as inactive?</label>
+									<br>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="text" class="form-control" id="clientID" name="id" hidden>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+						<button type="submit" name="activeDelete" class="btn btn-secondary blue">Yes</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock body %}

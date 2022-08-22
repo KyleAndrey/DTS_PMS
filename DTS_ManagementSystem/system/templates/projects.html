@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block title %}Projects{% endblock %}
+{% load static %}
+{% block body %}
+<div class="container-fluid justify-content-end">
+	<form method="POST">
+	{% csrf_token %}
+	<div class="row main justify-content-between">
+		<div class="col-sm-12 col-md-3 col-lg-3">
+			<h3 class="pageHeader"><span class="fa fa-tasks mr-3"></span> Projects&nbsp;&nbsp;
+
+			</h3>
+		</div>
+		<div class="col-sm-12 col-md-6 col-lg-6">
+			<!-- <div class="input-group">
+				<input type="text" class="form-control search" placeholder="Search..." aria-label="First name">
+				<button type="submit" class="buttonSearch fa-solid fa-magnifying-glass"></button>
+			</div> -->
+		</div>
+		<div class="col-sm-12 col-md-3 col-lg-3">
+			<a href="{% url 'newProject' %}"><button type="button" class="btn btn-primary pj"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;New Project</button></a>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="row cardList pj justify-content-between">
+		<div class="col-sm-12 col-md-3 col-lg-3">
+			<div class="smallCardDark1 pj animate slide delay-1">
+				<h6>Obtain PO</h6>
+				{{ obtainPOCount }}
+				<br>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-3 col-lg-3">
+			<div class="smallCardLight2 pj animate slide delay-1">
+				<h6>Confirm PO</h6>
+				{{ confirmPOCount }}
+				<br>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-3 col-lg-3">
+			<div class="smallCardMid1 pj animate slide delay-2">
+				<h6>Delivery</h6>
+				{{ deliveryCount }}
+				<br>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-3 col-lg-3">
+			<div class="smallCardDark2 pj animate slide delay-3">
+				<h6>Payment</h6>
+				{{ paymentCount }}
+				<br>
+			</div>
+		</div>
+
+		
+	</div>
+	
+	<br>
+		
+	<!-- <div class="row sub justify-content-between">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<br>
+			<div class="row justify-content-between animate slide delay-5">
+				<div class="col-sm-12 col-md-3 col-lg-3">
+					<h5>All Projects</h5>
+				</div>
+				<div class="col-sm-12 col-md-6 col-lg-6"></div>
+			</div>
+			<hr class="divider pj animate slide delay-6">
+		</div>
+	</div> -->
+
+	<div class="row sub justify-content-between">
+		<div class="col-sm-12 col-md-12 col-lg-12 animate slide delay-5">
+			<div class ="reportsList">
+				<table class="table table-hover" id="tableAll">
+					<thead>
+						<tr>
+							<th>Project Name</th>
+							<th>Client</th>
+							<th>Type</th>
+							<th>Deadline</th>
+							<th>Phase</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						
+
+						{% if project %}
+							{% for proj in project %}
+							<tr>
+								<td>{{ proj.projectName }}</td>
+								<td>{{ proj.clients.companyName }}</td>
+								<td>{{ proj.projectType }}</td>
+								<td>{{ proj.poDeadline }}</td>
+								<td>{{ proj.projectPhase }}</td>
+								<td>
+									<button type="submit" class="circleButton" name="arrow" value="{{ proj.id }}"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+								</td>
+							</tr>
+							{% endfor %}
+						{% endif %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div><br><br>
+
+	</form>
+	
+</div>
+{% endblock body %}

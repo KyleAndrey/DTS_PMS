@@ -1,0 +1,124 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Log In</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+    <script src="https://kit.fontawesome.com/c3481268b6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static '/css/login.css' %}">
+  </head>
+  <body>
+		
+		<div class="wrapper d-flex align-items-stretch">
+		
+
+		<div class="container justify-content-end">
+			
+			<div class="row sub justify-content-between">
+                <div class="col-sm-12 col-md-6 col-lg-6 animate slide delay-1">
+                  <!-- <img src="images/dts-logo.png" width="100%" class="dts-logo"> -->
+                </div>
+				<div class="col-sm-12 col-md-6 col-lg-6">
+          <h3 class="signInHeader animate slide delay-2"><i class="fa-solid fa-right-to-bracket"></i>&nbsp;&nbsp;Log In</h3>
+					<div class="card animate slide delay-3">
+            <form method="POST">
+              {% csrf_token %}
+                <div class="row justify-content-between">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <label for="companyName" class="form-label">Username</label>
+                        <input class="form-control" type="text" name="InputEmail" aria-describedby="emailHelp" required>
+                    </div>
+                </div>
+                <br>
+                <div class="row justify-content-between">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                      <label for="companyName" class="form-label">Password</label>
+                      <input class="form-control" type="password" name="InputPassword" data-toggle="password" required="true" required>
+                      <!--div class="passwordEye">
+                        
+                        <span onclick="password_show_hide();">
+                            <i class="fas fa-eye" id="show_eye"></i>
+                            <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+                        </span>
+                      </div-->
+                      <button type="submit" class="btn btn-primary" name="next" value="{{ request.GET.next }}"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </form>
+					</div>
+          <p class="create animate slide delay-3">
+            Don't have an account? <a href="{% url 'signup' %}">Sign up</a>
+          </p>
+				</div>
+				
+			</div>
+		</div>
+
+    <div class="fixed-top animate pop delay-2">
+      <div class="row alertRow justify-content-between">
+        <div class="col-sm-12 col-md-4 col-lg-4"></div>
+        <div class="col-sm-12 col-md-4 col-lg-4"></div>
+        <div class="col-sm-12 col-md-4 col-lg-4">
+          {% if messages %}
+            {% for message in messages %}
+              {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+              {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+              {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+              {% else %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endif %}
+            {% endfor %}
+            <br>
+          {% endif %}
+        </div>
+      </div>
+      
+    </div>
+
+	</div>
+    <script>
+      function password_show_hide() {
+        var x = document.getElementById("InputPassword");
+        var show_eye = document.getElementById("show_eye");
+        var hide_eye = document.getElementById("hide_eye");
+        hide_eye.classList.remove("d-none");
+        if (x.type === "password") {
+          x.type = "text";
+          show_eye.style.display = "none";
+          hide_eye.style.display = "block";
+        } else {
+          x.type = "password";
+          show_eye.style.display = "block";
+          hide_eye.style.display = "none";
+        }
+      }
+      </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+  </body>
+</html>

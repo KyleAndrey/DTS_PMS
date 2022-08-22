@@ -1,0 +1,167 @@
+{% load static %}
+<html>
+<head>
+	<title>Billing Invoice</title>
+
+	<style>
+		body{
+			font-family: Verdana, sans-serif;			
+			font-size: 12px;
+			/* background-image: url('letter_head.png');
+  			background-repeat: no-repeat;
+			background-size: contain; */
+			padding: 20px;
+		}
+
+		@page {
+			size: 21.59cm 19.94cm;
+			margin: 5mm;
+			
+		}
+
+		.heading{
+			margin-top: 30px;
+            padding-left: 60px;
+            margin-right: 35px !important;
+
+		}
+
+        .requirements{
+			margin-top: 30px;
+            padding-left: 60px;
+            margin-right: 35px !important;
+
+		}
+
+
+        table {
+            border-collapse: collapse;
+            width: max-content;
+            table-layout: auto;
+            border: 1pt solid black;
+            padding: 5px;
+        }
+
+        table.borderless{
+            border: none;
+            padding-bottom: 0;
+            padding-top: 0;
+        }
+
+		p{
+			line-height: 1.8;
+			text-align: justify;
+		}
+
+        .requirementsHeader{
+            text-align: center;
+            padding-left: 5px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+        }
+
+        .footer{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+        }
+
+        .smallFont{
+            font-size: 12px;
+            float: right !important;
+            right: 0 !important;
+            text-align: right !important;
+        }
+
+        .pic{
+			width:max-content;
+			float: center;
+		}
+
+        .footer{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+        }
+
+        .noTop{
+            position: fixed !important;
+            top: 0 !important;
+            margin-top: 0 !important;
+        }
+
+        .noLeft{
+            border-left: none;
+        }
+	</style>
+</head>
+
+<body>
+    <img src="https://i.ibb.co/TKqzFpj/billing-mainheader.png" style="width:816px;" class="pic">
+	<div class="heading">
+		<table class="borderless">
+            <tr>
+              <td width="60%"><b>Billed to:&nbsp;&nbsp;</b><span><u>{{ billingInvoice.clients.companyName }}</u></span></td>
+              <td width="40%" class="right"><b>Date:&nbsp;&nbsp;</b><span><u>{{ billingInvoice.dateIssued|date:'Y-m-d' }}</u></span></td>
+            </tr>
+            <tr>
+                <td width="60%"><b>TIN:&nbsp;&nbsp;</b><span><u>{{ billingInvoice.clients.companyTIN }}</u></span></td>
+                <td width="40%" class="right"><b>Terms:&nbsp;&nbsp;</b><span><u>{{ billingInvoice.terms }}</u></span></td>
+            </tr>
+            <tr>
+                <td width="60%"><b>Business Style:&nbsp;&nbsp;</b><span><u>{{ billingInvoice.clients.businessStyle }}</u></span></td>
+                <td width="40%" class="right"><b>J.O No. / P.O No.:&nbsp;&nbsp;</b><span><u>{{ billingInvoice.jopoNum }}</u></span></td>
+            </tr>
+            <tr>
+                <td width="60%"><b>Address:&nbsp;&nbsp;</b><span class="smallFont"><u>{{ billingInvoice.clients.companyAddress }}, {{ billingInvoice.clients.barangay }}, {{ billingInvoice.clients.city }}, {{ billingInvoice.clients.province }}, {{ billingInvoice.clients.region }}, {{ billingInvoice.clients.postalCode }}</u></span></td>
+            </tr>
+        </table>
+	</div>
+
+    <div class="requirements">
+        <table class="requirementsTable">
+            <tr class="requirementsTable">
+              <td width="80%" class="requirementsTable requirementsHeader"><b>PARTICULARS</b></td>
+              <!-- <td width="60%" class="requirementsTable requirementsHeader"><b>DESCRIPTION</b></td> -->
+              <td width="20%" class="requirementsTable requirementsHeader"><b>AMOUNT</b></td>
+
+            </tr>
+        </table>
+
+		<table class="noTop">
+            {% for item in assignedItem %}
+                <tr class="requirementsTable">
+                    <td width="20%" class="requirementsTable">{{ item.itemQuantity }}</td>
+                    <td width="60%" class="requirementsTable noLeft">{{ item.itemID.itemName }}</td>
+                    <td width="20%" class="leftSpace">{{ item.amount }}</td>
+                </tr>
+            {% endfor %}  
+            
+        </table>
+
+        <table class="noTop">
+            <tr class="requirementsTable">
+                <td width="80%" class="requirementsTable leftSpace smallFont">Total Amount</td>
+                <td width="20%" class="leftSpace"></td>
+            </tr>
+            <tr class="requirementsTable">
+                <td width="80%" class="requirementsTable leftSpace smallFont">Plus 12% VAT</td>
+                <td width="20%" class="leftSpace"></td>
+            </tr>
+
+            <tr class="requirementsTable">
+                <td width="80%" class="requirementsTable leftSpace smallFont">Total Amount Due</td>
+                <td width="20%" class="leftSpace">{{ billingInvoice.grandTotal }}</td>
+            </tr>
+
+        </table>
+	</div>
+
+    <br>
+
+    <img src="https://i.ibb.co/CHY1t4V/billing-mainfooter.png" style="width:816px;" class="footer">
+
+
+</body>
+</html>

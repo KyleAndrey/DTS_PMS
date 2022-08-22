@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+{% block title %}Delivery Receipt Form {% endblock %}
+{% load static %}
+{% block body %}
+<div class="container-fluid justify-content-end">
+	<form method="POST">
+		{% csrf_token %}
+		{{ form.errors }}
+		{{ form.non_field_errors }}
+		<div class="row main justify-content-between">
+			<div class="col-sm-12 col-md-6 col-lg-6">
+				<h3 class="pageHeader"><a href="{% url 'forms' %}"><span class="fa fa-arrow-circle-left mr-3"></span></a> Delivery Receipt Form</h3>
+			</div>
+			<div class="col-sm-12 col-md-3 col-lg-3"></div>
+			<div class="col-sm-12 col-md-3 col-lg-3"></div>
+		</div>
+		{% if deliveryReceipt %}
+
+		<div class="row sub justify-content-between animate slide delay-1">
+			<div class="cardManage forms">
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-3 col-lg-3">
+						<select class="form-select alternative" name="deliveryRecStatus" id="deliveryRecStatus" aria-label="Default select example">
+							<option selected disabled hidden value="{{ deliveryReceipt.deliveryRecStatus }}">{{ deliveryReceipt.deliveryRecStatus }}</option>
+							{% for dat in status %}
+								<option value="{{ dat.0 }}">{{ dat.1 }}</option>
+							{% endfor %}
+						</select>
+					</div>
+
+					
+					<div class="col-sm-12 col-md-6 col-lg-6"></div>
+
+					<div class="col-sm-12 col-md-3 col-lg-3">
+						<a href="{% url 'deliveryReceiptFormPDF' %}">
+							<button class="btn btn-primary manageSend forms" type="button">
+								<i class="fa-solid fa-download"></i>&nbsp;&nbsp;Download
+							</button>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row sub justify-content-between">
+			<div class="card forms animate slide delay-1">
+				
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<h5 class="formSection1 forms"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;General Details</h5>								
+					</div>
+					<div class="col-sm-12 col-md-7 col-lg-7"></div>
+				</div>
+
+				<div class="row justify-content-between">
+					
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br>
+						<label for="companyName" class="form-label forms">Delivery Receipt Number</label><br>
+						<span class="number forms">{{ deliveryReceipt.deliveryRecNumber }}</span>
+					</div>
+					
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br>
+						<label for="companyName" class="form-label forms">Date Issued*</label>
+						<input type="date" class="form-control" value="{{ deliveryReceipt.dateIssued|date:'Y-m-d' }}" id="dateIssued" name="dateIssued" aria-describedby="companyNameHelp" required>
+					</div>
+				</div>
+
+				<hr class="divider forms">
+				
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<h5 class="formSection1"><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;&nbsp;Client Details</h5>								
+					</div>
+					<div class="col-sm-12 col-md-7 col-lg-7"></div>
+				</div>
+
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br>
+						<input type="text" class="form-control" name="ClientNewProj" aria-describedby="companyNameHelp" id="ClientNewProjid" hidden>
+						<label for="companyName" class="form-label">Company Name*</label>
+						<input data-id="{{ deliveryReceipt.clients.id }}" id="currentClient" class="form-control" hidden>
+						<select id="searchClientNewProj" name="ClientNewProj" style="width: 100%;" required>
+							{% for dat in clientProject %}
+								<option data-companytin="{{ dat.companyTIN }}" data-businessstyle="{{ dat.businessStyle }}" data-companyaddress="{{ dat.companyAddress }}" data-longadd="{{ dat.barangay }}, {{ dat.city }}, {{ dat.province }}, {{ dat.region }}, {{ dat.postalCode }}" value="{{ dat.id }}">{{ dat.companyName }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					
+					<div class="col-sm-12 col-md-6 col-lg-6"></div>
+				</div>
+
+				<div class="row justify-content-between">
+					
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br>
+						<label for="companyName" class="form-label">Business Style*</label>
+						<input type="text" class="form-control" name="businessStyle" aria-describedby="companyNameHelp" id="businessStyleNew" readonly>
+					</div>
+
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br>
+						<label for="companyName" class="form-label">TIN*</label>
+						<input type="text" class="form-control" name="NewProjTIN" id="NewProjTIN" aria-describedby="companyNameHelp" readonly>
+					</div>
+				</div>
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<br>
+						<label for="companyName" class="form-label">Company Address*</label>
+						<input type="text" class="form-control" name="companyAddress" aria-describedby="companyNameHelp" id="companyaddressNewProj" readonly>
+						<br>
+						<input type="text" class="form-control" name="companyAddress" aria-describedby="companyNameHelp" id="longaddressNewProj" readonly>
+					</div>
+				</div>
+
+
+				<hr class="divider forms">
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<h5 class="formSection1 forms"><i class="fa fa-archive" aria-hidden="true"></i>&nbsp;&nbsp;Particulars*</h5>
+					
+					</div>
+					<div class="col-sm-12 col-md-2 col-lg-2">
+						<!-- <h6 id="addRowBilling" class="addRowButton forms"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add Row</h6> -->
+
+						<a data-bs-toggle="modal" data-bs-target="#addItem"><button type="button" class="btn btn-primary docu"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add Item</button></a>
+
+					</div>
+					<div class="col-sm-12 col-md-5 col-lg-5"></div>
+				</div>
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<br><br>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+								  <th>Item</th>
+								  <th>Price</th>
+								  <th>Quantity</th>
+								  <th>Unit</th>
+								  <th>Amount</th>
+								</tr>
+							</thead>
+							<tbody>								
+								{% for item in assignedItem %}
+									<tr class="calc-row">
+										<td width="32%"><input type="text" value="{{ item.itemID.itemName }}" id="itemName" name="itemName" class="form-control" readonly></td>
+										<td width="17%"><input type="number" value="{{ item.itemID.itemPrice }}" onload="findAmount()" id="itemPrice" name="itemPrice" class="form-control" readonly></td>
+										<td width="17%"><input type="number" value="{{ item.itemQuantity }}" onkeydown="if(event.key==='.'){event.preventDefault();}" pattern="/^\d+$/" onchange="findAmount()" id="qty" name="qty" class="form-control"></td>
+										<td width="17%">
+											<input data-name="{{ item.unit.unitID }}" id="currentUnit" class="form-control" hidden>
+											<select class="form-control" name="unitEdit" id="unitEdit" required>
+												{% for dat in unit %}
+													<option value="{{ dat.unitID }}">{{ dat.unitName }}</option>
+												{% endfor %}
+											</select>
+										</td>
+
+										<td width="17%"><input type="number" value="{{ item.amount }}" onchange="findTotal()" id="amount" name="amount" class="form-control" readonly></td>
+									</tr>
+								{% endfor %}
+								{% for item in itemList %}
+									{% if item != x.0 %}
+										<tr class="calc-row">
+											<td width="32%"><input type="text" value="{{ item.itemName }}" id="itemName" name="itemName" class="form-control" readonly></td>
+											<td width="17%"><input type="number" value="{{ item.itemPrice }}" onload="findAmount()" id="itemPrice" name="itemPrice" class="form-control" readonly></td>
+											<td width="17%"><input type="number" onkeydown="if(event.key==='.'){event.preventDefault();}" pattern="/^\d+$/" onchange="findAmount()" id="qty" name="qty" class="form-control"></td>
+											<td width="17%">
+												<select class="form-control" name="unitEdit" id="unitEdit" required>
+													{% for dat in unit %}
+														<option value="{{ dat.unitID }}">{{ dat.unitName }}</option>
+													{% endfor %}
+												</select>
+											</td>
+
+											<td width="17%"><input type="number" value="{{ item.amount }}" onchange="findTotal()" id="amount" name="amount" class="form-control" readonly></td>
+										</tr>
+									{% endif %}
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<hr class="divider forms">
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<h5 class="formSection1 forms"><i class="fa-solid fa-lock"></i>&nbsp;&nbsp;Terms*</h5>								
+					</div>
+					<div class="col-sm-12 col-md-7 col-lg-7">
+						<input type="text" value="{{ deliveryReceipt.terms }}" class="form-control" name="terms" id="terms" aria-describedby="companyNameHelp" required>
+					</div>
+				</div>
+				<hr class="divider forms">
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<br>
+						<input class="btn btn-primary forms" name="submit" type="submit" value="Submit">
+					</div>
+				</div><br><br>
+			</div>
+		</div><br><br>
+		{% endif %}
+	</form>
+
+	<div class="modal fade" id="addItem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<form method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{ form.errors }}
+				{{ form.non_field_errors }}
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">New Item</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<div class="modal-body">
+						<div class="container-fluid">
+						
+							<div class="row">
+								<div class="col-md-3 ms-auto">Item</div>
+								<div class="col-md-9 ms-auto">
+									<!-- <input type="text" class="form-control" name="item" aria-describedby="companyNameHelp" id="item" hidden> -->
+									<select id="searchItem" style="width: 100%;" name="item" multiple=multiple required>
+										{% for dat in items %}
+											<option value="{{ dat.pk }}">{{ dat.itemName }}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary docu" data-bs-dismiss="modal">Close</button>
+						<button type="submit" name="addItem" class="btn btn-secondary blue docu">Add</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+	$("input#itemPrice, input#qty").keyup(function() {
+		var $row = $(this).closest("tr.calc-row");
+		var p = Number($row.find("#itemPrice").val());
+		var q = Number($row.find("#qty").val());
+		$row.find("#amount").val(parseFloat(p * q)).trigger('change');
+	});
+	function findTotal(){
+		var arr = document.getElementsByName('amount');
+		var tot=0;
+		for(var i=0;i<arr.length;i++){
+			if(parseFloat(arr[i].value))
+				tot += parseFloat(arr[i].value);
+		}
+		document.getElementById('total').value = parseFloat(tot);
+		var trigger = document.getElementById('total');
+		trigger.dispatchEvent(new Event('input', {bubbles:true}));
+	}
+	$("#total, #tax").on('input', function() {
+		var total = parseFloat($('#total').val());
+		var tax = parseFloat($('#tax').val());
+		document.getElementById('grandTotal').value = + parseFloat((total * tax) / 100 + total).toFixed(2)
+	});
+	$('input[type="radio"]').click(function() {
+		if($(this).attr('id') == 'inlineCheckbox1') {
+			$('#taxInput').show();
+			var element = document.getElementById('tax');
+			element.dispatchEvent(new Event('input', {bubbles:true}));
+       	}
+       	else {
+			$('#taxInput').hide();
+			document.getElementById('grandTotal').value = parseFloat($('#total').val())
+       	}
+	});
+</script>
+{% endblock body %}

@@ -1,0 +1,138 @@
+{% load static %}
+<html>
+<head>
+	<title>Delivery Receipt</title>
+
+    
+	<style>
+		body{
+			font-family: Verdana, sans-serif;			
+			font-size: 12px;
+			/* background-image: url('letter_head.png');
+  			background-repeat: no-repeat;
+			background-size: contain; */
+			padding: 20px;
+		}
+
+		@page {
+			size: 21.59cm 17.94cm;
+			margin: 5mm;
+			
+		}
+
+		.heading{
+			margin-top: 30px;
+            padding-left: 60px;
+            margin-right: 35px !important;
+
+		}
+
+        .requirements{
+			margin-top: 30px;
+            padding-left: 60px;
+            margin-right: 35px !important;
+
+		}
+
+
+        table {
+            border-collapse: collapse;
+            width: max-content;
+            table-layout: auto;
+            border: 1pt solid black;
+            padding: 2px;
+        }
+
+        table.borderless{
+            border: none;
+            padding-bottom: 0;
+            padding-top: 0;
+        }
+
+		p{
+			line-height: 1.8;
+			text-align: justify;
+		}
+
+        .requirementsHeader{
+            text-align: center;
+            padding: 5px;
+        }
+
+        .footer{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+        }
+
+        .smallFont{
+            font-size: 10px;
+        }
+
+        .pic{
+			width:max-content;
+			float: center;
+		}
+
+        .footer{
+            position: fixed !important;
+            left: 0 !important;
+            bottom: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        .noTop{
+            position: fixed !important;
+            top: 0 !important;
+            margin-top: 0 !important;
+        }
+	</style>
+</head>
+
+<body>
+    {% if deliveryReceipt %}
+	<img src="delivery_receipt_header.png" style="width:100%;">
+    <img src="https://i.ibb.co/SJqYfTQ/delivery-receipt-header.png" style="width:816px"; class="noTop">
+	<div class="heading">
+		<table class="borderless">
+            <tr>
+              <td width="60%"><b>Delivered to:&nbsp;&nbsp;</b><span><u>{{ deliveryReceipt.clients.companyName }}</u></span></td>
+              <td width="40%" class="right"><b>Date:&nbsp;&nbsp;</b><span><u>{{ deliveryReceipt.dateIssued|date:'Y-m-d' }}</u></span></td>
+            </tr>
+            <tr>
+                <td width="60%"><b>Address:&nbsp;&nbsp;</b><span class="smallFont"><u>{{ deliveryReceipt.clients.companyAddress }}</u></span></td>
+                <td width="40%" class="right"><b>Terms:&nbsp;&nbsp;</b><span><u>{{ deliveryReceipt.terms }}</u></span></td>
+            </tr>
+            <tr>
+                <td width="60%"><b>Business Style:&nbsp;&nbsp;</b><span><u>{{ deliveryReceipt.clients.businessStyle }}</u></span></td>
+                <td width="40%" class="right"><b>TIN:&nbsp;&nbsp;</b><span><u>{{ deliveryReceipt.clients.companyTIN }}</u></span></td>
+            </tr>
+        </table>
+	</div>
+
+    <div class="requirements">
+		<table class="requirementsTable">
+            <tr class="requirementsTable">
+              <td width="15%" class="requirementsTable requirementsHeader"><b>QUANTITY</b></td>
+              <td width="15%" class="requirementsTable requirementsHeader"><b>UNIT</b></td>
+              <td width="70%" class="requirementsHeader"><b>DESCRIPTION</b></td>
+
+            </tr>
+            {% for item in assignedItem %}
+            <tr class="requirementsTable">
+                <td width="15%" class="requirementsTable leftSpace">{{ item.itemQuantity }}</td>
+                <td width="15%" class="requirementsTable leftSpace">{{ item.unit }}</td>
+                <td width="70%" class="leftSpace">{{ item.itemID.itemName }}</td>
+            </tr> 
+            {% endfor %}           
+        </table>
+	</div>
+
+	<br>
+
+    {% endif %}
+
+    <img src="https://i.ibb.co/7ytdZBH/delivery-receipt-footer.png" style="width:816px"; class="footer">
+
+</body>
+</html>

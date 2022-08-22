@@ -1,0 +1,102 @@
+{% extends 'baseAdmin.html' %}
+{% block title %}Profile{% endblock %}
+{% load static %}
+{% block body %}
+<div class="container-fluid justify-content-end">
+	<div class="row main justify-content-between">
+		<div class="col-sm-12 col-md-4 col-lg-4">
+			<h3 class="pageHeader"><i class="fa-solid fa-user"></i>&nbsp;&nbsp;&nbsp; Profile</h3>
+		</div>
+		<div class="col-sm-12 col-md-8 col-lg-8"></div>
+	</div>
+
+	<div class="row sub justify-content-between">
+		<div class="col-sm-12 col-md-8 col-lg-8">
+			<div class="cardNewProject po animate slide delay-1">
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						
+						<h5 class="formSection1 po"><i class="fa-solid fa-user-gear" aria-hidden="true"></i>&nbsp;&nbsp;Account Details</h5>								
+					</div>
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<div class="dropdown users">
+							<i class="fa fa-ellipsis-h dropdown-toggle users" aria-hidden="true" type="button" id="dropdownCenterBtn" data-bs-toggle="dropdown" aria-expanded="false"></i>
+							<ul class="dropdown-menu users" aria-labelledby="dropdownMenuButton1">
+								<li><a class="dropdown-item users" href="{% url 'adminEditProfile' %}">Edit</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br><br>
+						<h5 class="profileHeader">Username</h5>
+						{{ request.user.username }}
+					</div>
+					
+					<div class="col-sm-12 col-md-6 col-lg-6"></div>
+				</div>
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br><br>
+						<h5 class="profileHeader">Account Type</h5>
+						{{ request.user.accountType }}
+					</div>
+					
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br><br>
+						<h5 class="profileHeader">Department</h5>
+						{{ request.user.department.departmentName }}
+					</div>
+				</div>
+
+				<hr class="dividerNewProject po">
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<h5 class="formSection1 po"><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;&nbsp;Personal Details</h5>								
+					</div>
+					<div class="col-sm-12 col-md-6 col-lg-6"></div>
+				</div>
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br><br>
+						<h5 class="profileHeader">Name</h5>
+						{{ request.user.first_name }} {{ request.user.last_name }}
+					</div>
+					
+					<div class="col-sm-12 col-md-6 col-lg-6"></div>
+				</div>
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br><br>
+						<h5 class="profileHeader">Contact Number</h5>
+						{{ request.user.contactNumber }}
+					</div>
+					
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br><br>
+						<h5 class="profileHeader">Email</h5>
+						{{ request.user.email }}
+					</div>
+				</div>
+
+				<br><br>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-4 col-lg-4 illustration1">
+
+		</div>
+	</div>
+
+	
+	
+	
+	<br><br><br><br>
+</div>
+{% endblock body %}

@@ -1,0 +1,84 @@
+{% extends 'baseAdmin.html' %}
+{% block title %}Home{% endblock %}
+{% load static %} 
+{% block body %}
+<div class="container-fluid justify-content-end">
+	<div class="row main justify-content-between">
+		<div class="col-sm-12 col-md-4 col-lg-4">
+			<h3 class="pageHeader"><span class="fa fa-home mr-3"></span> Home</h3>
+		</div>
+
+		<div class="col-sm-12 col-md-2 col-lg-2"></div>
+
+		<div class="col-sm-12 col-md-1 col-lg-1">
+			<div class="btn-group">
+                <button type="button" class="btn dropdown-toggle notif noArrow position-relative" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{unverifiedUsers.count}}
+                        <span class="visually-hidden">unread messages</span>
+                    </span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-lg-end notifMenu home">
+                    <div class="row justify-content-between">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <h6>Notifications</h6>
+                        </div>
+                    </div>
+
+                    <hr>
+					{% for user in unverifiedUsers %}
+						<br>
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								Employee <b>{{user.name}}</b> with email <b>{{user.email}}</b> is not yet verified
+							</div>
+						</div>
+					{% endfor %}
+					
+                    
+                </div>
+            </div>
+		</div>
+	</div>
+
+	<div class="row sub justify-content-between">
+		<div class="col-sm-12 col-md-6 col-lg-6">
+			<div class="smallCardDark2 animate slide delay-0">
+				Today is
+				<h4 class="date">{% now "F j, Y" %}&nbsp;&nbsp;|&nbsp;&nbsp;<span id="time"></span></h4>
+			</div>
+			<div class="row justify-content-between">
+				<div class="col-sm-12 col-md-6 col-lg-6">
+					<div class="card animate slide delay-2">
+						Active Users
+						<h4 class="count">{{ activeUsers.count }}</h4>
+					</div>
+				</div>
+				<div class="col-sm-12 col-md-6 col-lg-6">
+					<div class="card animate slide delay-3">
+						Active Clients
+						<h4 class="count">{{ activeClients.count }}</h4>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		
+		<div class="col-sm-12 col-md-6 col-lg-6 illustration home animate slide">
+			
+		</div>
+	</div>
+	
+	
+	<br><br><br><br>
+</div>
+<script>
+	let time = document.getElementById('time');
+	setInterval(function() {
+		let date = new Date();
+		time.innerHTML = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+	}, 1000);
+</script>
+
+{% endblock body %}

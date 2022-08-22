@@ -1,0 +1,329 @@
+{% extends 'base.html' %}
+{% block title %}Project{% endblock %}
+{% load static %}
+{% block body %}
+{% regroup alltask by phaseName as taskPhases %}
+<div class="container-fluid justify-content-end">
+	<div class="row main justify-content-between">
+		<div class="col-sm-12 col-md-9 col-lg-9">
+			<h3 class="pageHeader"><a href="{% url 'projects' %}"><span class="fa fa-arrow-circle-left mr-3"></span></a>{{ project.projectName }}</h3>
+		</div>
+		<div class="col-sm-12 col-md-3 col-lg-3">
+			<h5 class="formSection3 po"><i class="fa-solid fa-bars-progress"></i>&nbsp;&nbsp;Current Phase: &nbsp;{{ project.projectPhase }}</h5>							
+		</div>
+	</div>
+
+	<div class="row cardList po justify-content-between">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<div class="smallCardLight po slide delay-1">
+				<ul id="progressbar">
+					<br>
+					<a href="{% url 'projectObtain' %}"><li class="active" id="account" data-step="1"><strong>Obtain PO</strong><br>{{ project.projectStart }}</li></a>
+					<a href="{% url 'projectConfirm' %}"><li class="active" id="personal" data-step="2"><strong>Confirm PO</strong><br>{{ project.poDeadline }}</li></a>
+					<a href="{% url 'projectDelivery' %}"><li class="highlight" id="payment" data-step="3"><strong>Delivery</strong><br>{{ delivery }}</li></a>
+					<a href="{% url 'projectPayment' %}"><li class="highlight" id="confirm" data-step="4"><strong>Payment</strong><br>{{ payment }}</li></a>
+				</ul>
+			</div>
+			<br><br>
+		</div>
+	</div>
+
+	<div class="row cardList po justify-content-between">
+		<div class="col-sm-12 col-md-5 col-lg-5 illustration animate slide delay-2"></div>
+
+
+		<div class="col-sm-12 col-md-7 col-lg-7">
+			<div class="cardStatus po  animate slide delay-3">
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<form method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="row justify-content-between">
+								<div class="col-sm-12 col-md-10 col-lg-10">
+									<h4>Confirm Purchase Order</h4>
+									{% if allChecked == 1 %}
+										<span class="workflowStatus-completed"><b>Completed</b></span>
+									{% else %}
+										<span class="workflowStatus-ongoing"><b>Ongoing</b></span>
+									{% endif %}
+									<span class="workflowStatus-staff">Sales and Marketing</span>
+								</div>
+								<div class="col-sm-12 col-md-2 col-lg-2">
+									<a data-bs-toggle="modal" data-bs-target="#addNewTask"><button type="button" class="btn btn-primary editTasks editTasksButton" {% if request.user.department.departmentName != 'Sales and Marketing' %}disabled{% endif %}><i class="fa-solid fa-plus"></i></button></a>
+								</div>
+							</div>
+
+							<hr><br>
+
+							<h5 class="tasks">Tasks Done: <span class="count">{{ countTaskDone }} / {{ countTaskTotal }}</span></h5>
+
+							<input type="text" class="form-control" id="doneTasks" name="doneTasks" hidden>
+							<input type="text" class="form-control" id="undoneTasks" name="undoneTasks" hidden>
+							{% for task in tasks %}
+								{% if task.taskID.phaseName == 'Confirm PO' and task.taskID.has_file == False %}
+									<div class="form-check workflowTasks">
+											<input class="form-check-input taskInput" type="checkbox" value="{{ task.id }}" {% if request.user.department.departmentName != 'Sales and Marketing' %}disabled{% endif %} {% if task.is_done == True %}checked{% endif %}>
+											<label class="form-check-label" for="flexCheckDefault">{{ task.taskID.taskName }}
+												<a data-bs-toggle="modal" {% if request.user.department.departmentName == 'Sales and Marketing' %} data-bs-target="#deleteTask" {% endif %}><button data-id="{{ task.id }}" type="button" class="blankButton taskDeleteButton"><i class="fa-solid fa-square-minus deleteTask"></i></button></a>
+											</label>
+									</div>
+								{% endif %}
+							{% endfor %}
+
+							<br><hr><br>
+							<h5 class="tasks">File Upload</h5>
+							<input type="text" class="form-control" id="doneTasksFile" name="doneTasksFile" hidden>
+							<input type="text" class="form-control" id="undoneTasksFile" name="undoneTasksFile" hidden>
+							{% for task in tasks %}
+								{% if task.taskID.phaseName == 'Confirm PO' and task.taskID.has_file == True %}
+									<div class="form-check workflowTasks">
+										<div class="row justify-content-between taskFileMargin">
+											<div class="col-sm-12 col-md-12 col-lg-12">
+												<input class="form-check-input taskInputFile" type="checkbox" id="fileChk_{{ task.id }}" value="{{ task.id }}" {% if task.is_file_uploaded == True %}checked{% endif %} onclick="return false;">
+												{{ task.taskID.taskName }}</button></a>
+												<a data-bs-toggle="modal" {% if request.user.department.departmentName == 'Sales and Marketing' %} data-bs-target="#deleteTask" {% endif %}><button data-id="{{ task.id }}" type="button" class="blankButton taskDeleteButton"><i class="fa-solid fa-square-minus deleteTask"></i></button></a>
+											</div>
+										</div>
+
+										<div class="row justify-content-between">
+											<div class="col-sm-12 col-md-8 col-lg-8">
+												<input type="file" class="form-control taskInputFileUp" name="files" id="file_{{ task.id }}" data-id="{{ task.id }}" {% if request.user.department.departmentName != 'Sales and Marketing' %}disabled{% endif %}>
+											</div>
+											<div class="col-sm-12 col-md-4 col-lg-4">
+												<button type="button" data-id="{{ task.id }}" value="Clear" class="fa-solid fa-rotate-left blankButton taskInputFileUpClear" {% if request.user.department.departmentName != 'Sales and Marketing' %}disabled{% endif %}></button>
+											</div>
+										</div>
+									</div>
+								{% endif %}
+							{% endfor %}
+							<br><hr><br>
+							<input class="btn btn-primary floatRight up po" name="setDoneTasks" type="submit" value="Update" {% if request.user.department.departmentName != 'Sales and Marketing' %}disabled{% endif %}>
+						</form>
+
+					</div>
+					<!-- <div class="col-sm-12 col-md-2 col-lg-2">
+						<button class="btn btn-primary po" id="previous"><i class="fa-solid fa-rotate-left"></i></button>
+					</div> -->
+					
+				</div>
+			</div>
+			
+		</div>
+
+
+       
+
+	</div>
+
+	<br>
+	<div class="row cardList po justify-content-between">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<br><br><hr class="divider  slide delay-4"><br><br>
+		</div>
+	</div>
+	
+	<div class="row cardList po justify-content-between">
+		<div class="col-sm-12 col-md-5 col-lg-5  slide delay-5">
+			<h5 class="subHeader po"><i class="fa-solid fa-bars-progress"></i>&nbsp;&nbsp;&nbsp;Project Details</h5>
+			<div class="cardProjectDetails po">
+				<b class="detailsLabel">Company Name&nbsp;&nbsp;</b><br>{{ project.clients.companyName }}<br><br>
+				<b class="detailsLabel">Company Address&nbsp;&nbsp;</b><br>{{ project.clients.companyAddress }}<br>{{ project.clients.barangay}}, {{ project.clients.city }}, {{ project.clients.province }}, {{ project.clients.region }}, {{ project.clients.postalCode }}<br><br>
+				<b class="detailsLabel">Business Style&nbsp;&nbsp;</b><br>{{ project.clients.businessStyle.businessStyleName }}<br><br>
+				<hr class="divider"><br>
+				<b class="detailsLabel">Delivery Terms&nbsp;&nbsp;</b><br>{{ project.deliveryTerms }} days after PO confirmation<br><br>
+				<b class="detailsLabel">Payment Terms&nbsp;&nbsp;</b><br>{{ project.paymentTerms }} days after delivery<br><br>
+				
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-7 col-lg-7 animate slide delay-6">
+		
+			<!-- <h5 class="subHeader">
+				<i class="fa fa-calendar-o" aria-hidden="true"></i>Plotted Deadlines&nbsp;&nbsp;
+				<span class="dropdown">
+					<i class="fa fa-ellipsis-h dropdown-toggle" aria-hidden="true" type="button" id="dropdownCenterBtn" data-bs-toggle="dropdown" aria-expanded="false"></i>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+						<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deliveryModal">Edit</a></li>
+					</ul>
+				</span>
+			</h5> -->
+			<div class="row justify-content-between">
+				<div class="col-sm-12 col-md-10 col-lg-10">
+					<h5 class="subHeader">
+						<i class="fa-solid fa-timeline"></i>&nbsp;&nbsp;&nbsp;Plotted Deadlines
+					</h5>
+
+				</div>
+				<div class="col-sm-12 col-md-2 col-lg-2">
+					<div class="dropdown po">
+						<i class="fa fa-ellipsis-h dropdown-toggle po" aria-hidden="true" type="button" id="dropdownCenterBtn" data-bs-toggle="dropdown" aria-expanded="false"></i>
+						<ul class="dropdown-menu po" aria-labelledby="dropdownMenuButton1">
+							<li><a class="dropdown-item po" data-bs-toggle="modal" data-bs-target="#plottedDeadlinesModal">Edit</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="cardDeadlines">
+				<div class="row cardDeadlines-details justify-content-between">
+					<div class="col-sm-12 col-md-1 col-lg-1">
+						<i class="fas fa-file cardDeadlines-icon"></i>
+					</div>
+					<div class="col-sm-12 col-md-11 col-lg-11 cardDeadlines-date">
+						<h6>Obtain Purchase Order</h6>
+						<span class="deadlineLabel-plotted">Deadline: <strong>{{ project.projectStart }}</strong></span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="cardDeadlines">
+				<div class="row cardDeadlines-details justify-content-between">
+					<div class="col-sm-12 col-md-1 col-lg-1">
+						<i class="fa fa-check-circle cardDeadlines-icon" aria-hidden="true"></i>
+					</div>
+					<div class="col-sm-12 col-md-11 col-lg-11 cardDeadlines-date">
+						<h6>Confirm Purchase Order</h6>
+						<span class="deadlineLabel-plotted">Deadline: <strong>{{ project.poDeadline }}</strong></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="cardDeadlines">
+				<div class="row cardDeadlines-details justify-content-between">
+					<div class="col-sm-12 col-md-1 col-lg-1">
+						<i class="fa fa-truck cardDeadlines-icon" aria-hidden="true"></i>							
+					</div>
+					<div class="col-sm-12 col-md-11 col-lg-11 cardDeadlines-date">
+						<h6>Delivery of Order</h6>
+						<span class="deadlineLabel-plotted">Deadline: <strong>{{ delivery }}</strong></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="cardDeadlines">
+				<div class="row cardDeadlines-details justify-content-between">
+					<div class="col-sm-12 col-md-1 col-lg-1">
+						<i class="fa-solid fa-money-bill-1-wave cardDeadlines-icon" aria-hidden="true"></i>
+					</div>
+					<div class="col-sm-12 col-md-11 col-lg-11 cardDeadlines-date">
+						<h6>Payment of Order</h6>
+						<span class="deadlineLabel-plotted">Deadline: <strong>{{ payment }}</strong></span>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="modal fade" id="plottedDeadlinesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<form>
+						<div class="modal-content">
+							<div class="modal-header">
+							  <h5 class="modal-title" id="exampleModalLabel">Edit Plotted Deadlines</h5>
+							  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-md-6 ms-auto">
+											<label for="companyName" class="form-label">Delivery Terms Extension</label>
+										<input class="form-control" type="number" min="0" placeholder="No. of days added" required>
+										</div>
+										<div class="col-md-6 ms-auto">
+											<label for="companyName" class="form-label">Payment Terms Extension</label>
+											<input class="form-control" type="number" min="0" placeholder="No. of days added" required>
+											<br>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="modal-footer">
+							  <button type="button" class="btn btn-secondary po" data-bs-dismiss="modal">Close</button>
+							  <button type="submit" class="btn btn-primary po">Save Changes</button>
+							</div>
+
+						</div>
+
+					</form>
+				  
+				</div>
+			</div>
+		</div>
+	</div>
+	<br><br><br><br>
+
+    <div class="modal fade" id="addNewTask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{ form.errors }}
+				{{ form.non_field_errors }}
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Add Tasks</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+	
+					<div class="modal-body">
+						<div class="container-fluid">
+	
+							<div class="row">
+								<div class="col-md-2 ms-auto">Tasks</div>
+								<div class="col-md-10 ms-auto">
+									<input type="text" class="form-control" name="projID" aria-describedby="companyNameHelp" value="{{ project.id }}" hidden>
+									<input type="text" class="form-control" name="tasksArr" aria-describedby="companyNameHelp" id="addProjectTasks" hidden>
+									<select class="addProjectTasksSelect2" id="addProjectTasksSelect" style="width: 100%;" multiple="multiple" name="addProjectTasks" required>
+										{% for phase, task in taskPhases %}
+											{% if phase == 'Confirm PO' %}
+												{% for tasksArr in task %}
+												<option value="{{ tasksArr.id }}">{{ tasksArr }}</option>
+												{% endfor %}
+											{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+	
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary docu" data-bs-dismiss="modal">Close</button>
+						<button type="submit" name="addAssignedTask" class="btn btn-secondary blue docu">Add</button>
+					</div>
+				</div>
+			</form>
+        </div>
+    </div>
+	
+	<div class="modal fade" id="deleteTask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<form method="post">
+				{% csrf_token %}
+				{{ form.errors }}
+				{{ form.non_field_errors }}
+				<div class="modal-content">
+					<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Delete File</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+	
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-12 ms-auto">
+									<label for="companyName" class="form-label">Are you sure you want to delete the task?</label>
+									<br>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="text" class="form-control" id="assignedTaskIDdel" name="taskID" hidden>
+						<button type="button" class="btn btn-secondary docu" data-bs-dismiss="modal">No</button>
+						<button type="submit" name="assignedTaskDelete" class="btn btn-secondary blue docu">Yes</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock body %}

@@ -1,0 +1,184 @@
+{% extends 'baseAdmin.html' %}
+{% block title %}Edit User{% endblock %}
+{% load static %} 
+{% block body %}
+<div class="container-fluid justify-content-end">
+	<div class="row main justify-content-between">
+		<div class="col-sm-12 col-md-4 col-lg-4">
+			<h3 class="pageHeader"><a onclick="history.back()"><span class="fa fa-arrow-circle-left mr-3"></span></a> Edit User</h3>
+		</div>
+		<div class="col-sm-12 col-md-4 col-lg-4">
+			
+		</div>
+		<div class="col-sm-12 col-md-4 col-lg-4">
+			<!-- <h5 class="formSection2"><i class="fa fa-key" aria-hidden="true"></i>&nbsp;&nbsp;Employee ID: 00001</h5>								 -->
+		</div>
+	</div>
+
+	<div class="row sub justify-content-between">
+		<div class="col-sm-12 col-md-8 col-lg-8">
+			<div class="cardNewProject animate slide delay-1">
+				<form method="POST">
+					{% csrf_token %}
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							
+							<h5 class="formSection1"><i class="fa-solid fa-user-gear"></i>&nbsp;&nbsp;Account Details</h5>								
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-6"></div>
+					</div>
+
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<br><br>
+							<h5 class="profileHeader">Username</h5>
+							<input type="text" class="form-control" name="username" value="{{ user.username }}" aria-describedby="companyNameHelp" required>
+						</div>
+
+						<div class="col-sm-12 col-md-6 col-lg-6"></div>
+					</div>
+
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<br><br>
+							<h5 class="profileHeader">Account Type</h5>
+							<input data-name="{{ user.accountType }}" id="currentAccountType" class="form-control" hidden>
+							<select class="form-select" id="accountTypeEdit" name="accountTypeEdit" aria-label="Default select example" required>
+								{% for t in type %}
+									<option value="{{ t.1 }}">{{ t.0 }}</option>
+								{% endfor %}
+							</select>
+						</div>
+
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<br><br>
+							<h5 class="profileHeader">Department</h5>
+							<input data-name="{{ user.department.id }}" id="currentDepartment" class="form-control" hidden>
+							<select class="form-select" id="departmentEdit" name="departmentEdit" aria-label="Default select example" required>
+								{% for dat in departments %}
+									<option value="{{ dat.id }}">{{ dat.departmentName }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+
+					<hr class="dividerNewProject">
+
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							
+							<h5 class="formSection1"><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;&nbsp;Personal Details</h5>								
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-6"></div>
+					</div>						
+
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<br><br>
+							<h5 class="profileHeader">First Name</h5>
+							<input type="text" class="form-control" name="first_name" value="{{ user.first_name }}" aria-describedby="companyNameHelp" required>
+						</div>
+
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<br><br>
+							<h5 class="profileHeader">Last Name</h5>
+							<input type="text" class="form-control" name="last_name" value="{{ user.last_name }}"aria-describedby="companyNameHelp" required>
+						</div>
+					</div>
+
+
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<br><br>
+							<h5 class="profileHeader">Contact Number</h5>
+							<input type="text" class="form-control" name="contactNumber" value="{{ user.contactNumber }}" aria-describedby="companyNameHelp" required>
+						</div>
+
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<br><br>
+							<h5 class="profileHeader">Email</h5>
+							<input type="text" class="form-control" name="email" value="{{ user.email }}" aria-describedby="companyNameHelp" required>
+						</div>
+					</div>
+
+					<hr class="dividerNewProject">
+
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-12 col-lg-12">
+							<input class="btn btn-primary submitButton" type="submit" value="Save Changes">
+						</div>
+					</div><br>
+				</form>
+
+				
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-4 col-lg-4 illustration1">
+
+		</div>
+	</div>
+
+	
+	<!-- Alerts -->
+
+	<!-- <div class="fixed-top animate pop delay-2">
+		<div class="row alertRow justify-content-between">
+			<div class="col-sm-12 col-md-4 col-lg-4"></div>
+			<div class="col-sm-12 col-md-4 col-lg-4"></div>
+			<div class="col-sm-12 col-md-4 col-lg-4">
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					<strong>Holy guacamole!</strong> You should check in on some of those fields below.
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</div>
+		</div>
+
+		<div class="row alertRow justify-content-between">
+			<div class="col-sm-12 col-md-4 col-lg-4"></div>
+			<div class="col-sm-12 col-md-4 col-lg-4"></div>
+			<div class="col-sm-12 col-md-4 col-lg-4">
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					<strong>Holy guacamole!</strong> You should check in on some of those fields below.
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	
+	<br><br><br><br>
+</div>
+
+<script>
+	function password_show_hide() {
+	var x = document.getElementById("InputPassword");
+	var show_eye = document.getElementById("show_eye");
+	var hide_eye = document.getElementById("hide_eye");
+	hide_eye.classList.remove("d-none");
+	if (x.type === "password") {
+		x.type = "text";
+		show_eye.style.display = "none";
+		hide_eye.style.display = "block";
+	} else {
+		x.type = "password";
+		show_eye.style.display = "block";
+		hide_eye.style.display = "none";
+	}
+	}
+
+	function password_show_hide1() {
+	var x = document.getElementById("InputPassword1");
+	var show_eye = document.getElementById("show_eye1");
+	var hide_eye = document.getElementById("hide_eye1");
+	hide_eye.classList.remove("d-none");
+	if (x.type === "password") {
+		x.type = "text";
+		show_eye.style.display = "none";
+		hide_eye.style.display = "block";
+	} else {
+		x.type = "password";
+		show_eye.style.display = "block";
+		hide_eye.style.display = "none";
+	}
+	}
+</script>
+{% endblock body %}

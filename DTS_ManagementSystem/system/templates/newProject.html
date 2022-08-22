@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% block title %}New Project{% endblock %}
+{% load static %}
+{% block body %}
+{% regroup tasks by phaseName as taskPhases %}
+<div class="container-fluid justify-content-end">
+	<div class="row main justify-content-between">
+		<div class="col-sm-12 col-md-4 col-lg-4">
+			<h3 class="pageHeader"><a href="{% url 'projects' %}"><span class="fa fa-arrow-circle-left mr-3"></span></a> New Project</h3>
+		</div>
+		<div class="col-sm-12 col-md-4 col-lg-4">
+			
+		</div>
+		<div class="col-sm-12 col-md-4 col-lg-4">
+			<!-- <h5 class="formSection2 po"><i class="fa fa-key" aria-hidden="true"></i>&nbsp;&nbsp;Project ID: 00001</h5>								 -->
+		</div>
+	</div>
+
+	<div class="row sub justify-content-between">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<form method="POST">
+				<div class="cardNewProject po animate slide delay-1">
+					
+						
+						{% csrf_token %}
+						{{ form.errors }}
+						{{ form.non_field_errors }}
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-5 col-lg-5">
+								
+								<h5 class="formSection1 po"><i class="fa-solid fa-bars-progress"></i>&nbsp;&nbsp;Project Details</h5>								
+							</div>
+						</div>
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<label for="companyName" class="form-label">Project Name*</label>
+								<input type="text" class="form-control" name="projName" aria-describedby="companyNameHelp" required>
+							</div>
+							
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<label for="companyName" class="form-label">Project Type</label>
+								<select id="searchProjectType" style="width: 100%;" name="projectType" required>
+									{% for dat in projectTypes %}
+										<option value="{{ dat.projectTypeName }}">{{ dat.projectTypeName }}</option>
+									{% endfor %}
+								</select>
+							</div>
+						</div>
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<label for="companyName" class="form-label">P.O. No.*</label>
+								<input type="text" class="form-control" name="companyName" aria-describedby="companyNameHelp" required>
+							</div>
+						
+						</div>
+						
+						<hr class="dividerNewProject po">
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-5 col-lg-5">
+								
+								<h5 class="formSection1 po"><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;&nbsp;Client Details</h5>								
+							</div>
+							<div class="col-sm-12 col-md-7 col-lg-7"></div>
+						</div>
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<input type="text" class="form-control" name="ClientNewProj" aria-describedby="companyNameHelp" id="ClientNewProjid" hidden>
+								<label for="companyName" class="form-label">Company Name*</label>
+								<select id="searchClientNewProj" name="ClientNewProj" style="width: 100%;" required>
+										{% for dat in clientProject %}
+										<option data-businessstyle="{{ dat.businessStyle }}" data-companyaddress="{{ dat.companyAddress }}" data-longadd="{{ dat.barangay }}, {{ dat.city }}, {{ dat.province }}, {{ dat.region }}, {{ dat.postalCode }}" value="{{ dat.id }}">{{ dat.companyName }}</option>
+										{% endfor %}
+								</select>
+							</div>
+							
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<label for="companyName" class="form-label">Business Style*</label>
+								<input type="text" class="form-control" name="businessStyle" aria-describedby="companyNameHelp" id="businessStyleNew" readonly>
+							</div>
+						</div>
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<br>
+								<label for="companyName" class="form-label">Company Address*</label>
+								<input type="text" class="form-control" name="companyAddress" aria-describedby="companyNameHelp" id="companyaddressNewProj" readonly>
+								<br>
+								<input type="text" class="form-control" name="companyAddress" aria-describedby="companyNameHelp" id="longaddressNewProj" readonly>
+							</div>
+						</div>
+
+						<hr class="dividerNewProject po">
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-5 col-lg-5">
+								<h5 class="formSection1 po"><i class="fa-solid fa-calendar"></i>&nbsp;&nbsp;Deadline and Terms</h5>								
+							</div>
+							<div class="col-sm-12 col-md-7 col-lg-7"></div>
+						</div>
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<label for="companyName" class="form-label">Purchase Order Deadline*</label>
+								<input type="date" class="form-control" id="typeDate" name="poDeadline" aria-describedby="companyNameHelp" required>
+							</div>
+							
+							<div class="col-sm-12 col-md-6 col-lg-6"></div>
+						</div>
+						<br><br>
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<label for="companyName" class="form-label">Delivery Terms*</label>
+								<input class="form-control" type="number" name="deliveryTerms" min="1" placeholder="No. of days" required>
+							</div>
+
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<label for="companyName" class="form-label">Payment Terms*</label>
+								<input class="form-control" type="number" name="paymentTerms" min="1" placeholder="No. of days" required>
+							</div>
+						</div>
+
+						<br><br>
+
+					</div>
+
+				<br><br>
+
+				<div class="cardNewProject po animate slide delay-2">
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-5 col-lg-5">
+							
+							<h5 class="formSection1 po"><i class="fa-solid fa-list-check"></i>&nbsp;&nbsp;Tasks and Phases</h5>								
+						</div>
+					</div>
+
+					<div class="row justify-content-between">
+						<input type="text" class="form-control" name="tasksArr" aria-describedby="companyNameHelp" id="newProjectTasks" hidden>
+						{% for phase, tasks in taskPhases %}
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<br>
+							<label for="companyName" class="form-label">{{phase}} Phase</label>
+							<select class="newProjectTasksSelect2" style="width: 100%;" multiple="multiple" required>
+								{% for task in tasks %}
+									<option value="{{ task.id }}">{{ task }}</option>
+								{% endfor %}
+							</select>
+						</div>
+						{% endfor %}
+					</div>
+
+					<hr class="dividerNewProject po">
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<br>
+								<input class="btn btn-primary submitButton po" type="submit" value="Create">
+							</div>
+						</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+
+	
+	
+	
+	<br><br><br><br>
+</div>
+<script>
+	var today = new Date();
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mmMin = String(today.getMonth() + 1).padStart(2, '0');
+	var mmMax = String(today.getMonth() + 2).padStart(2, '0');
+	var yyyy = today.getFullYear();
+
+	min = yyyy + '-' + mmMin + '-' + dd;
+	max = yyyy + '-' + mmMax + '-' + dd;
+	$('#typeDate').attr('value',min).attr('min',min).attr('max',max);
+</script>
+{% endblock body %}

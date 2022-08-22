@@ -1,0 +1,581 @@
+.cardList.fp{
+    padding-right: 9%;
+    padding-left: 9%;
+    margin-left: 200px;
+}
+
+
+
+.card.fp{
+    margin-top: 20px;
+    background-color: #f5f9ff;
+    border-radius: 20px;
+    border: none;
+    padding: 25px;
+    font-size: 14px;
+    color: #0853C2;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+    /* background-image:url("../images/plant-light.png");
+    background-position: top right;
+    background-repeat: no-repeat; */
+}
+
+.cardDark.fp{
+    margin-top: 20px;
+    background-color: #092147;
+    border-radius: 20px;
+    border: none;
+    padding: 25px;
+    font-size: 14px;
+    color: #f5f9ff;
+    box-shadow: rgba(110, 117, 123, 0.2) 0px 12px 10px;
+
+    background-image:url("../images/plant-dark.png");
+    background-position: top right;
+    background-repeat: no-repeat;
+}
+
+.cardMid.fp{
+    margin-top: 20px;
+    background-color: #0853C2;
+    border-radius: 20px;
+    border: none;
+    padding: 25px;
+    font-size: 14px;
+    color: #f5f9ff;
+    box-shadow: rgba(110, 117, 123, 0.2) 0px 12px 10px;
+
+    background-image:url("../images/plant-mid.png");
+    background-position: top right;
+    background-repeat: no-repeat;
+}
+
+.smallcarddDark.fp{
+    margin-top: 20px;
+    background-color: #092147;
+    border-radius: 20px;
+    border: none;
+    padding: 25px;
+    font-size: 14px;
+    color: #f5f9ff;
+    box-shadow: rgba(110, 117, 123, 0.2) 0px 12px 10px;
+
+    background-image:url("../images/circular-pattern-dark.png");
+    background-size: contain;
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.smallcardMid.fp{
+    margin-top: 20px;
+    background-color: #0853C2;
+    border-radius: 20px;
+    border: none;
+    padding: 25px;
+    font-size: 14px;
+    color: #f5f9ff;
+    box-shadow: rgba(110, 117, 123, 0.2) 0px 12px 10px;
+
+    background-image:url("../images/circular-pattern-mid.png");
+    background-size: contain;
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.smallcardLight.fp{
+    margin-top: 20px;
+    background-color: #9CC3FA;
+    border-radius: 20px;
+    border: none;
+    padding: 25px;
+    font-size: 14px;
+    color: #f5f9ff;
+    box-shadow: rgba(110, 117, 123, 0.2) 0px 12px 10px;
+
+    background-image:url("../images/circular-pattern-light.png");
+    background-size: contain;
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.count.fp{
+    color: #f5f9ff;
+    font-weight: bold;
+}
+
+.smallCardDark.fp{
+    margin-top: 30px;
+    background-color: #092147;
+    color: #c0cde5;
+    border-radius: 20px;
+    border: none;
+    padding: 15px;
+    padding-left: 20px;
+    font-size: 22px;
+    box-shadow: rgba(110, 117, 123, 0.2) 0px 12px 10px;
+    position: relative;
+    
+    background-image:url("../images/grid-dark.png");
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.smallCardDark2.fp{
+    margin-top: 30px;
+    background-color: #092147;
+    color: #c0cde5;
+    border-radius: 20px;
+    border: none;
+    padding: 15px;
+    padding-left: 20px;
+    font-size: 22px;
+    box-shadow: rgba(110, 117, 123, 0.2) 0px 12px 10px;
+    position: relative;
+    
+    background-image:url("../images/grid-dark.png");
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+.smallCardDark.fp:hover, .smallCardDark2:hover{
+    background-color: #05142b;
+    color: #91b4f4;
+
+    /* animation-name: floating;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out; */
+}
+
+.smallCardMid.fp:hover, .smallCardMid2:hover{
+    background-color: #074db3;
+    color: #91b4f4;
+
+    /* animation-name: floating;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out; */
+}
+
+.smallCardLight.fp:hover, .smallCardLight2:hover{
+    background-color: #8dbafa;
+    color: #fff;
+
+    /* animation-name: floating;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out; */
+}
+
+@keyframes floating {
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 5px); }
+    100%   { transform: translate(0, -0px); }   
+}
+
+.smallCardMid.fp{
+    margin-top: 30px;
+    background-color: #0853C2;
+    color: #c0cde5;
+    border-radius: 20px;
+    border: none;
+    padding: 15px;
+    padding-left: 20px;
+    font-size: 22px;
+    box-shadow: rgba(110, 117, 123, 0.2) 0px 12px 10px;
+    position: relative;
+    
+    background-image:url("../images/grid-mid.png");
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+.smallCardMid2.fp{
+    margin-top: 30px;
+    background-color: #0853C2;
+    color: #c0cde5;
+    border-radius: 20px;
+    border: none;
+    padding: 15px;
+    padding-left: 20px;
+    font-size: 22px;
+    box-shadow: rgba(110, 117, 123, 0.2) 0px 12px 10px;
+    position: relative;
+    
+    background-image:url("../images/wave.png");
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+
+
+.smallCardLight.fp{
+    margin-top: 30px;
+    background-color: #9CC3FA;
+    color: #fff;
+    border-radius: 30px;
+    border: none;
+    padding: 15px;
+    padding-left: 20px;
+    padding-right: 40px;
+    font-size: 16px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    position: relative;
+    
+    /* background-image:url("../images/wave.png");
+    background-position: right;
+    background-repeat: no-repeat; */
+}
+
+/* .smallCardLight:hover{
+    background-color: #93bcf6;
+} */
+
+.smallCardLight2.fp{
+    margin-top: 30px;
+    background-color: #9CC3FA;
+    color: #fff;
+    border-radius: 20px;
+    border: none;
+    padding: 15px;
+    padding-left: 20px;
+    font-size: 22px;
+    box-shadow: rgba(110, 117, 123, 0.2) 0px 12px 10px;
+    position: relative;
+    
+    background-image:url("../images/grid-light.png");
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+
+.cardStatus.fp{
+    margin-top: 30px;
+    background-color: #fff;
+    color: #2A7AF5;
+    border-radius: 30px;
+    border: none;
+    padding: 30px;
+    font-size: 14px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    position: relative;
+    z-index: 1;
+    position: relative;
+
+    background-image:url("../images/path.png");
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.cardStatus.fp:hover{
+    background-color: #fff;
+}
+
+.lower.fp{
+    background-color: #F1F6FF;
+    padding: 3%;
+    margin-left: 320px;
+    margin-right: 100px;
+    border-radius: 30px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.cardProjectDetails.fp{
+    margin-top: 30px;
+    background-color: #fff;
+    color: #092147;
+    border-radius: 30px;
+    border: none;
+    padding: 30px;
+    font-size: 14px;
+    position: relative;
+    z-index: 1;
+    position: relative;
+    margin-right: 20px;
+
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.subHeader.fp{
+    color: #092147;
+    font-weight:bold;
+}
+
+.detailsLabel.fp{
+    color: #2A7AF5;
+}
+
+.projectList.fp{
+    height: 230px;
+    width: 100%;
+    overflow-y: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.projectCard.fp{
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    border: none;
+    padding: 15px;
+    font-size: 14px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 2px 10px;
+}
+
+.projectCard.fp:hover{
+    background-color: #D7E8FF;
+    color: #2A7AF5;
+}
+
+.divider.fp{
+    color: #2A7AF5;
+}
+
+.header.fp{
+    color: #777777;
+    margin-bottom: 10px;
+}
+.fa-arrow-circle-right.fp{
+    font-size: 18px;
+}
+ 
+.form-control.fp{
+    border-radius: 15px;
+}
+
+
+.form-select-sm.fp{
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 2px 10px;
+    border: none;
+}
+
+.fa-filter.fp{
+    font-size: 12px;
+}
+
+.illustration.fp{
+    background-image:url("../images/rocket-man.png");
+    background-size: 75%;
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+.cardDeadlines.fp{
+    margin-top: 30px;
+    background-color: #fff;
+    color: #2A7AF5;
+    border-radius: 20px;
+    border: none;
+    padding: 15px;
+    padding-left: 35px;
+    font-size: 14px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    position: relative;
+    z-index: 1;
+    position: relative;
+}
+
+.deadlineLabel.fp{
+    background-color: #FD9E6D;
+    padding: 3px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 10px;
+    color: #CD5313;
+}
+
+.deadlineLabel-plotted.fp{
+    background-color: #D7E8FF;
+    padding: 3px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 10px;
+    color: #2A7AF5;
+}
+
+.cardDeadlines-icon.fp{
+    font-size: 35px;
+}
+
+.cardDeadlines-date.fp{
+    padding-left: 35px;
+    color: #2A7AF5;
+}
+
+.cardDeadlines-details.fp{
+    position: relative;
+}
+
+.dropdown-toggle.fp::after {
+    display:none;
+}
+
+
+.dropdown.fp{
+    position: relative;
+    z-index: 99;
+    float: center;
+    color: #2A7AF5;
+}
+
+.dropdown-menu.fp{
+    border-radius: 15px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.modal-content.fp{
+    border-radius: 20px;
+    border: none;
+}
+
+
+
+
+.fit-image.fp {
+    width: 100%;
+    object-fit: cover;
+}
+
+
+.btn-primary.fp{
+    background-color: #2A7AF5;
+    border-radius: 10px;
+}
+
+.badge.fp{
+    content: '1';
+    display: block;
+    position: absolute;
+    right: 1.3333em;
+}
+
+.text-bg-primary.fp{
+    background-color: #2A7AF5;
+    border-radius: 10px;
+}
+
+.accordion-button.fp :active, .accordion-button.fp:hover, .accordion-button.fp:enabled{
+    outline: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 20px !important;
+    background-color: #fff;
+}
+
+.accordion-button.fp:hover, .accordion-button.fp:focus{
+    background-color: #D7E8FF;
+}
+
+.accordion-header.fp:active{
+    background-color: #D7E8FF;
+}
+
+.accordion-button.fp::after{
+    display:none !important;
+}
+
+.accordion-button.fp::before{
+    display:none !important;
+}
+
+.file.fp{
+    background-color: #e8f2ff;
+    color: #2A7AF5;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.file.fp:hover{
+    background-color: #D7E8FF;
+}
+
+.formIcon.fp{
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.fileLink.fp:hover{
+    font-weight: bold;
+}
+
+.animate{
+    animation-duration: 0.4s;
+    animation-duration: 0.4s;
+    animation-delay: 0.1s;
+    animation-name: animate-fade;
+    animation-timing-function: cubic-bezier(.26,.53,.74,1.48);
+    animation-fill-mode: backwards;
+}
+
+.animate.fade {
+    animation-name: animate-fade;
+    animation-timing-function: ease;
+  }
+  @keyframes animate-fade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+
+.animate.slide { animation-name: animate-slide; }
+@keyframes animate-slide {
+0% {
+opacity: 0;
+transform: translate(0,20px);
+}
+100% {
+    opacity: 1;
+    transform: translate(0,0);
+}
+}
+
+.delay-1 {
+    animation-delay: 0.2s;
+    }
+    .delay-2 {
+    animation-delay: 0.3s;
+    }
+    .delay-3 {
+    animation-delay: 0.4s;
+    }
+    .delay-4 {
+    animation-delay: 0.5s;
+    }
+    .delay-5 {
+    animation-delay: 0.6s;
+    }
+    .delay-6 {
+    animation-delay: 0.7s;
+    }
+    .delay-7 {
+    animation-delay: 0.8s;
+    }
+    .delay-8 {
+    animation-delay: 0.9s;
+    }
+    .delay-9 {
+    animation-delay: 1s;
+    }
+    .delay-10 {
+    animation-delay: 1.2s;
+    }
+    .delay-11 {
+    animation-delay: 1.3s;
+    }
+    .delay-12 {
+    animation-delay: 1.4s;
+    }
+    .delay-13 {
+    animation-delay: 1.5s;
+    }
+    .delay-14 {
+    animation-delay: 1.6s;
+    }
+    .delay-15 {
+    animation-delay: 1.7s;
+    }

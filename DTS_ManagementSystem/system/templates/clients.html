@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Clients{% endblock %}
+{% load static %}
+{% block body %}
+<div class="container-fluid justify-content-end">
+	<form method="POST">
+		{% csrf_token %}
+			<div class="row main justify-content-between">
+				<div class="col-sm-12 col-md-3 col-lg-3">
+					<h3 class="pageHeader"><span class="fa fa-user mr-3"></span> Clients&nbsp;&nbsp;
+
+					</h3>
+				</div>
+				<div class="col-sm-12 col-md-6 col-lg-6">
+					<!-- <div class="input-group">
+						<input type="text" class="form-control search" placeholder="Search..." aria-label="First name">
+						<button type="submit" class="buttonSearch fa-solid fa-magnifying-glass"></button>
+					</div> -->
+					
+				</div>
+				<div class="col-sm-12 col-md-3 col-lg-3">
+					<a href="{% url 'newClient' %}"><button type="button" class="btn btn-primary docu"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;New Client</button></a>
+				</div>
+			</div>
+			<br>
+
+			<!-- <div class="row sub1 justify-content-between">
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<hr class="divider docu animate slide delay-2">
+				</div>
+			</div> -->
+			
+			<div class="row sub justify-content-between  animate slide delay-3">
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<div class ="reportsList">
+						<table class="table table-hover" id="tableAll">
+							<thead>
+								<tr>
+									<th>TIN</th>
+									<th>Company Name</th>
+									<th>Business Style</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								{% if client %}
+									{% for clients in client  %}
+										{% if clients.is_inactive == False %}
+										<tr>
+											<td>{{ clients.companyTIN }}</td>
+											<td>{{ clients.companyName }}</td>
+											<td>{{ clients.businessStyle }}</td>
+											<td><button type="submit" class="circleButton" name="arrow" value="{{ clients.companyTIN }}"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button></td>
+										</tr>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div><br><br>
+	
+	</form>
+
+	
+</div>
+{% endblock body %}

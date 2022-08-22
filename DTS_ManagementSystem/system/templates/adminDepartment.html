@@ -1,0 +1,198 @@
+{% extends 'baseAdmin.html' %}
+{% block title %}Department{% endblock %}
+{% load static %} 
+{% block body %}
+<div class="container-fluid justify-content-end">
+	
+		<div class="row main justify-content-between">
+			<div class="col-sm-12 col-md-4 col-lg-4">
+				<h3 class="pageHeader"><i class="fa-solid fa-briefcase"></i>&nbsp; Department&nbsp;&nbsp;
+
+				</h3>
+			</div>
+			<div class="col-sm-12 col-md-5 col-lg-5">
+				<!-- <div class="input-group">
+					<input type="text" class="form-control search" placeholder="Search..." aria-label="First name">
+					<button type="submit" class="buttonSearch fa-solid fa-magnifying-glass"></button>
+				</div> -->
+			</div>
+			<div class="col-sm-12 col-md-3 col-lg-3">
+				<a data-bs-toggle="modal" data-bs-target="#addDepartment"><button type="button" class="btn btn-primary users"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;New Department</button></a>
+			</div>
+		</div>
+		<br>
+
+		
+	
+		<div class="row sub justify-content-between  animate slide delay-3">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class ="reportsList">
+					<table class="table table-hover" id="tableAll">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Name</th>
+								<th>Status</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for dat in dataList %}
+								<tr>
+									<td>{{ dat.id }}</td>
+									<td>{{ dat.departmentName }}</td>
+									<td>
+										{% if dat.is_inactive == False %}
+											Active
+										{% else %}
+											Inactive
+										{% endif %}
+									</td>
+									<td>
+										<button data-id="{{ dat.id }}" data-name="{{ dat.departmentName }}" data-bs-toggle="modal" data-bs-target="#editDepartment" id="editRow" class="fa-solid fa-pen departmentEditButton circleButton"></button>									
+										{% if dat.is_inactive == False %}
+											<button data-id="{{ dat.id }}" data-bs-toggle="modal" data-bs-target="#inactivate" id="removeRow" class="fa fa-minus-square departmentDeleteButton circleButton-red"></button>
+										{% else %}
+											<button data-id="{{ dat.id }}" data-bs-toggle="modal" data-bs-target="#activate" id="removeRow" class="fa fa-plus-square departmentDeleteButton circleButton-green"></button>
+										{% endif %}
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div><br><br>
+
+		<div class="modal fade" id="addDepartment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<form method="POST">
+					{% csrf_token %}
+					{{ form.errors }}
+					{{ form.non_field_errors }}
+					<div class="modal-content">
+						<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Add Department</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+
+						<div class="modal-body">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-md-4 ms-auto">Name</div>
+									<div class="col-md-8 ms-auto">
+										<input type="text" class="form-control" id="departmentName" name="departmentName">
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+							<button type="submit" name="departmentAdd" class="btn btn-secondary blue">Add</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	
+		<div class="modal fade" id="inactivate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<form method="POST">
+					{% csrf_token %}
+					{{ form.errors }}
+					{{ form.non_field_errors }}
+					<div class="modal-content">
+						<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Set Department as Inactive</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+
+						<div class="modal-body">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-md-12 ms-auto">
+										<label for="companyName" class="form-label">Are you sure you want to set the selected department as inactive?</label>
+										<br>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<input type="text" class="form-control" id="departmentIDInactive" name="departmentID" hidden>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+							<button type="submit" name="departmentInactive" class="btn btn-secondary blue">Yes</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="modal fade" id="activate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<form method="POST">
+					{% csrf_token %}
+					{{ form.errors }}
+					{{ form.non_field_errors }}
+					<div class="modal-content">
+						<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Set Department as Active</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+
+						<div class="modal-body">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-md-12 ms-auto">
+										<label for="companyName" class="form-label">Are you sure you want to set the selected department as active?</label>
+										<br>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<input type="text" class="form-control" id="departmentIDActive" name="departmentID" hidden>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+							<button type="submit" name="departmentActive" class="btn btn-secondary blue">Yes</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="modal fade" id="editDepartment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<form method="POST">
+					{% csrf_token %}
+					{{ form.errors }}
+					{{ form.non_field_errors }}
+					<div class="modal-content">
+						<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Edit Department</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+
+						<div class="modal-body">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-md-4 ms-auto">Name</div>
+									<div class="col-md-8 ms-auto">
+										<input type="text" class="form-control" id="departmentIDEdit" name="departmentID" hidden>
+										<input type="text" class="form-control" id="departmentNameEdit" name="departmentName">
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+							<button type="submit" name="departmentEdit" class="btn btn-secondary blue">Save</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+			
+		</div>
+		{% endblock body %}

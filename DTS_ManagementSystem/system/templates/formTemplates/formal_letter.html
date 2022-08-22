@@ -1,0 +1,103 @@
+{% load static %}
+<html>
+<head>
+	<title>Formal Letter</title>
+
+	<style>
+		body{
+			font-family: Verdana, sans-serif;			
+			font-size: 14px;
+			/* background-image: url('letter_head.png'); */
+			/* background-image:url('{% static "images/letter_head.png" %}'); */
+
+  			background-repeat: no-repeat;
+			background-size: contain;
+			padding: 20px;
+		}
+
+		@page {
+			size: 21.59cm 27.94cm;
+			margin: 5mm 10mm 2mm 10mm;
+			
+		}
+
+		.heading{
+			margin-top: 430px;
+		}
+
+		.attention{
+			margin-left: 50px;
+		}
+
+		.attention1{
+			margin-left: 125px;
+		}
+
+		.salutation{
+			margin-top: 50px;
+		}
+
+		p{
+			line-height: 1.8;
+			text-align: justify;
+		}
+
+		.pic{
+			width:max-content;
+			float: center;
+		}
+
+		.footer{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+        }
+	</style>
+</head>
+
+<body>
+	{% if formalLetter %}
+
+
+	<div class="heading">
+
+		<img src="https://i.ibb.co/P67kcPq/letter-head.png" style="width: 816px;" class="pic">
+
+		<br><br><br>
+		{{ formalLetter.dateIssued }}
+		<br>
+		<br><br>
+
+		<b>{{ formalLetter.companyName }}</b>
+		<br>
+		{{ formalLetter.companyAddress }}
+		<br>
+		Philippines
+	</div>
+
+	
+	<div>
+		Attention: <span class="attention ">{{formalLetter.receiverName }}</span>
+		<span class="attention1">
+			<br>{{ formalLetter.position }}	
+		</span>
+		<br><br>
+		<b>{{ formalLetter.formalSubj }}</b>
+	</div>
+
+	<div class="salutation">
+		Dear {{formalLetter.receiverName }},
+	</div>
+
+	<p>{{ formalLetter.body }}</p>	
+
+	<div class="closing">
+		<br><br><b>Viverly Joy C. Salenga</b><br>
+		Proprietor
+	</div>
+
+	{% endif %}
+
+	<img src="https://i.ibb.co/RSKxyN6/letter-head-footer.png" style="width: 816px;" class="footer">
+</body>
+</html>

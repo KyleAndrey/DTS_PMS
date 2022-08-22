@@ -1,0 +1,200 @@
+{% extends 'baseAdmin.html' %}
+{% block title %}Tag{% endblock %}
+{% load static %} 
+{% block body %}
+
+		<div class="container-fluid justify-content-end">
+			
+				<div class="row main justify-content-between">
+					<div class="col-sm-12 col-md-4 col-lg-4">
+						<h3 class="pageHeader"><i class="fa-solid fa-tag"></i>&nbsp; Tag&nbsp;&nbsp;
+
+						</h3>
+					</div>
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<!-- <div class="input-group">
+							<input type="text" class="form-control search" placeholder="Search..." aria-label="First name">
+							<button type="submit" class="buttonSearch fa-solid fa-magnifying-glass"></button>
+						</div> -->
+					</div>
+					<div class="col-sm-12 col-md-3 col-lg-3">
+						<a data-bs-toggle="modal" data-bs-target="#add"><button type="button" class="btn btn-primary users"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;New Tag</button></a>
+					</div>
+				</div>
+
+                <br>
+
+            
+				
+				<div class="row sub justify-content-between  animate slide delay-3">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class ="reportsList">
+                            <table class="table table-hover" id="tableAll">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for dat in dataList %}
+                                        <tr>
+                                            <td>{{ dat.tagID }}</td>
+                                            <td>{{ dat.tagName }}</td>
+                                            <td>
+                                                {% if dat.is_inactive == False %}
+                                                    Active
+                                                {% else %}
+                                                    Inactive
+                                                {% endif %} 
+                                            </td>
+                                            <td>
+                                                <button data-id="{{ dat.tagID }}" data-name="{{ dat.tagName }}" data-bs-toggle="modal" data-bs-target="#editTag" id="editRow" class="fa-solid fa-pen tagEditButton circleButton"></button>									
+                                                {% if dat.is_inactive == False %}
+                                                    <button data-id="{{ dat.tagID }}" data-bs-toggle="modal" data-bs-target="#inactivate" id="removeRow" class="fa fa-minus-square tagDeleteButton circleButton-red"></button>
+                                                {% else %}
+                                                    <button data-id="{{ dat.tagID }}" data-bs-toggle="modal" data-bs-target="#activate" id="removeRow" class="fa fa-plus-square tagDeleteButton circleButton-green"></button>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+				</div><br><br>
+
+                <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form method="POST">
+							{% csrf_token %}
+							{{ form.errors }}
+							{{ form.non_field_errors }}>
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add Tag</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+    
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4 ms-auto">Name</div>
+                                            <div class="col-md-8 ms-auto">
+                                                <input type="text" class="form-control" id="tagName" name="tagName">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                    <button type="submit" name="tagAdd"  class="btn btn-secondary blue">Add</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+			
+                <div class="modal fade" id="inactivate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form method="POST">
+							{% csrf_token %}
+							{{ form.errors }}
+							{{ form.non_field_errors }}
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Set Tag as Inactive</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+    
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-12 ms-auto">
+                                                <label for="companyName" class="form-label">Are you sure you want to set the selected tag as inactive?</label>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                	<input type="text" class="form-control" id="tagIDInactive" name="tagID" hidden>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                    <button type="submit" name="tagInactive"  class="btn btn-secondary blue">Yes</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="activate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form method="POST">
+							{% csrf_token %}
+							{{ form.errors }}
+							{{ form.non_field_errors }}
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Set Tag as Active</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+    
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-12 ms-auto">
+                                                <label for="companyName" class="form-label">Are you sure you want to set the selected tag as active?</label>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                	<input type="text" class="form-control" id="tagIDActive" name="tagID" hidden>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                    <button type="submit" name="tagActive"  class="btn btn-secondary blue">Yes</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="editTag" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form method="POST">
+							{% csrf_token %}
+							{{ form.errors }}
+							{{ form.non_field_errors }}>
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Edit Tag</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+    
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4 ms-auto">Name</div>
+                                            <div class="col-md-8 ms-auto">
+                                            	<input type="text" class="form-control" id="tagIDEdit" name="tagID" hidden>
+                                                <input type="text" class="form-control" id="tagNameEdit" name="tagName">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                    <button type="submit" name="tagEdit"  class="btn btn-secondary blue">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+			
+		</div>
+		{% endblock body %}

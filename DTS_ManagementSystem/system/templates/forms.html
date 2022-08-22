@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% block title %}Forms{% endblock %}
+{% load static %}
+{% block body %}
+<div class="container-fluid justify-content-end">
+    <div class="row main justify-content-between">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <h3 class="pageHeader"><span class="fa-solid fa-file mr-3"></span> Forms</h3>
+        </div>
+    </div>
+
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row cardList fp justify-content-between">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="cardProjectDetails fp animate slide delay-1">
+                    <h5>Form Status</h5><br>
+                    <div class="accordion accordion-flush fp" id="accordionFlushExample">
+                        
+                        <div class="accordion-item fp">
+                          <h2 class="accordion-header fp" id="flush-headingOne">
+                            <button class="accordion-button collapsed fp" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                              Quotation&nbsp;
+                              <span class="badge text-bg-primary fp">
+                                {{quotationForm.count}}
+                              </span>
+                            </button>
+                          </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse fp" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body fp">
+                                    {% if quotationForm %}
+                                        {% for quotationForms in quotationForm %}
+                                            <div class="row file justify-content-between fp">
+                                                <div class="col-sm-12 col-md-3 col-lg-3">
+                                                    <button type="submit" class="circleButton" name="quotationForm" value="{{ quotationForms.quotationFormID }}">{{ quotationForms.quotationFormNumber }}</button>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                                    <button type="submit" class="circleButton" name="quotationForm" value="{{ quotationForms.quotationFormID }}"><b>{{ quotationForms.quotationSubj }}</b></button>
+                                                </div>
+                                                <div class="col-sm-12 col-md-3 col-lg-3">{{ quotationForms.quotationStatus }}</div>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                          </div>
+                        </div>
+    
+    
+                        <div class="accordion-item fp">
+                          <h2 class="accordion-header fp" id="flush-headingTwo">
+                            <button class="accordion-button collapsed fp" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                              Billing Invoice&nbsp;
+                              <span class="badge text-bg-primary fp">
+                                {{billingInv.count}}
+                              </span>
+                            </button>
+                          </h2>
+                          <div id="flush-collapseTwo" class="accordion-collapse collapse fp" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body fp">
+                                    {% if billingInv %}
+                                    {% for billingInvs in billingInv %}
+                                        <div class="row file justify-content-between fp">
+                                            <div class="col-sm-12 col-md-3 col-lg-3">
+                                                <button type="submit" class="circleButton" name="billingInv" value="{{ billingInvs.billingInvID }}">{{ billingInvs.billingInvNumber }}</button>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                                <button type="submit" class="circleButton" name="billingInv" value="{{ billingInvs.billingInvID }}"><b>{{ billingInvs.clients.companyName }}</b></button>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3 col-lg-3">{{ billingInvs.billingInvStatus }}</div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="accordion-item fp">
+                          <h2 class="accordion-header fp" id="flush-headingThree">
+                            <button class="accordion-button collapsed fp" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                              Sales Invoice&nbsp;
+                              <span class="badge text-bg-primary fp">
+                                {{salesInv.count}}
+                              </span>
+                            </button>
+                          </h2>
+                          <div id="flush-collapseThree" class="accordion-collapse collapse fp" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body fp">
+                                {% if salesInv %}
+                                    {% for salesInvs in salesInv %}
+                                        <div class="row file justify-content-between fp">
+                                            <div class="col-sm-12 col-md-3 col-lg-3">
+                                                <button type="submit" class="circleButton" name="salesInvForm" value="{{ salesInvs.salesInvID }}">{{ salesInvs.salesInvNumber }}</button>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                                <button type="submit" class="circleButton" name="salesInvForm" value="{{ salesInvs.salesInvID }}"><b>{{ salesInvs.clients.companyName }}</b></button>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3 col-lg-3">{{ salesInvs.salesInvStatus }}</div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="accordion-item fp">
+                            <h2 class="accordion-header fp" id="flush-headingFour">
+                              <button class="accordion-button collapsed fp" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                Delivery Receipt&nbsp;
+                                <span class="badge text-bg-primary fp">
+                                    {{ deliveryReceipt.count }}
+                                </span>
+                              </button>
+                            </h2>
+                            <div id="flush-collapseFour" class="accordion-collapse collapse fp" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    {% if deliveryReceipt %}
+                                        {% for deliveryReceipts in deliveryReceipt %}
+                                            <div class="row file justify-content-between fp">
+                                                <div class="col-sm-12 col-md-3 col-lg-3">
+                                                    <button type="submit" class="circleButton" name="deliveryReceipt" value="{{ deliveryReceipts.deliveryRecID }}">{{ deliveryReceipts.deliveryRecNumber }}</button>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                                    <button type="submit" class="circleButton" name="deliveryReceipt" value="{{ deliveryReceipts.deliveryRecID }}"><b>{{ deliveryReceipts.clients.companyName }}</b></button>
+                                                </div>
+                                                <div class="col-sm-12 col-md-3 col-lg-3">{{ deliveryReceipts.deliveryRecStatus }}</div>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item fp">
+                            <h2 class="accordion-header fp" id="flush-headingFive">
+                              <button class="accordion-button collapsed fp" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                                Formal Letters&nbsp;
+                                <span class="badge text-bg-primary fp">
+                                    {{formalLetter.count}}
+                                </span>
+                              </button>
+                            </h2>
+                            <div id="flush-collapseFive" class="accordion-collapse collapse fp" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    {% if formalLetter %}
+                                        {% for formalLetters in formalLetter %}
+                                            <div class="row file justify-content-between fp">
+                                                <div class="col-sm-12 col-md-3 col-lg-3">
+                                                    <button type="submit" class="circleButton" name="formalLetter" value="{{ formalLetters.formalID }}">{{ formalLetters.formalLetterNumber }}</button>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                                    <button type="submit" class="circleButton" name="formalLetter" value="{{ formalLetters.formalID }}"><b>{{ formalLetters.formalSubj }}</b></button>
+                                                </div>
+                                                <div class="col-sm-12 col-md-3 col-lg-3">{{ formalLetters.formalStatus }}</div>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="row justify-content-between">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <a href="{% url 'formalLetterForm' %}">
+                            <div class="smallCardMid2 fp animate slide delay-2">
+                                <i class="fa fa-file formIcon fp" aria-hidden="true"></i>
+                                <h6>Formal Letters</h6>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+    
+                <div class="row justify-content-between">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <a href="{% url 'quotationForm' %}">
+                            <div class="smallCardDark fp animate slide delay-3">
+                                <i class="fa fa-list-ul formIcon fp" aria-hidden="true"></i>
+                                <h6>Quotation Form</h6>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <a href="{% url 'billingInvoiceForm' %}">
+                            <div class="smallCardMid fp animate slide delay-4">
+                                <i class="fa fa-credit-card formIcon fp" aria-hidden="true"></i>
+                                <h6>Billing Invoice Form</h6>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+    
+                <div class="row justify-content-between">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <a href="{% url 'salesInvoiceForm' %}">
+                            <div class="smallCardLight2 fp animate slide delay-5">
+                                <i class="fa fa-shopping-cart formIcon fp" aria-hidden="true"></i>
+                                <h6>Sales Invoice Form</h6>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <a href="{% url 'deliveryReceiptForm' %}">
+                            <div class="smallCardDark2 fp animate slide delay-6">
+                                <i class="fa fa-truck formIcon fp" aria-hidden="true"></i>
+                                <h6>Delivery Receipt</h6>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+    
+            
+        </div>
+    </form>   
+    
+    
+    <br><br><br><br>
+
+        
+</div>
+{% endblock body %}

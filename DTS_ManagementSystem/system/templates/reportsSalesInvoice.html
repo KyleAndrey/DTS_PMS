@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}Reports{% endblock %}
+{% load static %}
+{% block body %}
+<div class="container-fluid justify-content-end">
+	<form method="POST">
+		{% csrf_token %}
+			<div class="row main justify-content-between">
+				<div class="col-sm-12 col-md-3 col-lg-3">
+					<h3 class="pageHeader"><span class="fa-solid fa-chart-simple"></span>&nbsp;&nbsp;Reports&nbsp;&nbsp;
+
+					</h3>
+				</div>
+				<div class="col-sm-12 col-md-6 col-lg-6">
+					<!-- <div class="input-group">
+						<input type="text" class="form-control search" placeholder="Search..." aria-label="First name">
+						<button type="submit" class="buttonSearch fa-solid fa-magnifying-glass"></button>
+					</div> -->
+				</div>
+				<div class="col-sm-12 col-md-3 col-lg-3">
+					<!-- <a href="{% url 'newClient' %}"><button type="button" class="btn btn-primary docu"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;New Client</button></a> -->
+				</div>
+			</div>
+			<br>
+
+        
+        <div class="row sub justify-content-between  animate slide delay-1">
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <ul class="nav nav-pills">
+              <li class="nav-item reportSpace">
+                <a class="nav-link docuCat docu" aria-current="page" href="{% url 'reports' %}">Projects</a>
+              </li> 
+              <li class="nav-item reportSpace">
+                  <a class="nav-link docuCat docu" aria-current="page" href="{% url 'reportsClients' %}">Clients</a>
+                </li>
+              <li class="nav-item reportSpace">
+                <a class="nav-link docuCat docu" href="{% url 'reportsProducts' %}">Products</a>
+              </li>
+              <li class="nav-item reportSpace">
+                <a class="nav-link docuCat docu" href="{% url 'reportsServices' %}">Services</a>
+              </li>
+              <li class="nav-item reportSpace dropdown">
+                <a class="nav-link docuCat docu active dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Forms</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'reportsBillingInvoice' %}">Billing Invoice</a></li>
+                  <li><a class="dropdown-item" href="{% url 'reportsSalesInvoice' %}">Sales Invoice</a></li>
+                  <li><a class="dropdown-item" href="{% url 'reportsDeliveryReceipt' %}">Delivery Receipt</a></li>
+                </ul>
+              </li>
+             
+            </ul>
+            <hr class="divider animate slide delay-2">
+          </div>
+			  </div>
+
+        <div class="row sub justify-content-between animate slide delay-3">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <div class ="reportsList">
+                <table class="table table-hover" id="tableAll">
+                  <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Deadline</th>
+                        <th>Status</th>
+                        <th>Company ID</th>
+                        <th>Company Name</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>01</td>
+                      <td>Angat Buhay</td>
+                      <td>January 1, 2020</td>
+                      <td>Ongoing</td>
+                      <td>02</td>
+                      <td>Acme Corporation</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+            </div>
+            
+        </div>
+
+        
+        <br><br>
+	
+	</form>
+
+	
+</div>
+{% endblock body %}

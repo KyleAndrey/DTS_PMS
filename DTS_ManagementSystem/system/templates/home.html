@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% load static %}
+{% block body %}
+<div class="container-fluid justify-content-end">
+    <div class="row main justify-content-between">
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <h3 class="pageHeader"><span class="fa fa-home mr-3"></span> Home</h3>
+        </div>
+
+        <div class="col-sm-12 col-md-8 col-lg-8"></div>
+
+        <div class="col-sm-12 col-md-1 col-lg-1">
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary userButton dropdown-toggle noArrow position-relative" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{nearDeadlines.count|add:overDeadlines.count}}
+                        <span class="visually-hidden">unread messages</span>
+                    </span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-lg-end notifMenu">
+                    <div class="row justify-content-between">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <h6>Notifications</h6>
+                        </div>
+                    </div>
+
+                    <hr><h6 class="deadRange">Within 7 days</h6>
+                    {% for ded in nearDeadlines %}
+                        <br>
+                        <div class="row justify-content-between">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                The project <b>{{ded.projectName}}</b> from Client <b>{{ded.clients.companyName}}</b> is due on {{ded.projectDeadline}}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <hr><h6 class="deadRange">Overdue</h6>
+                    {% for ded in overDeadlines %}
+                        <br>
+                        <div class="row justify-content-between">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                The project <b>{{ded.projectName}}</b> from Client <b>{{ded.clients.companyName}}</b> is already due last {{ded.projectDeadline}}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row sub justify-content-between">
+        <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="smallCardMid home animate slide delay-0">
+                Today is
+                <h4 class="date home">{% now "F j, Y" %}&nbsp;&nbsp;|&nbsp;&nbsp;<span id="time"></span></h4>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <div class="card home animate slide delay-2">
+                        Deadlines Today
+                        <h4 class="count home1">0</h4>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <div class="card home animate slide delay-3">
+                        Ongoing Projects
+                        <h4 class="count home1">{{ ongoingProjects.count }}</h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="col-sm-12 col-md-6 col-lg-6 illustration home1 animate slide  delay-4">
+            
+        </div>
+    </div>
+    
+    <div class="row sub justify-content-between">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <hr class="divider home animate slide delay-5">
+            <h5 class="quickAccessHeader animate slide">Quick Access</h5>
+        </div>
+    </div>
+    <div class="row subCards home1 justify-content-between">
+
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="smallCardMid2 home animate slide delay-6">
+                <div class="row justify-content-between">
+                    <div class="col-sm-12 col-md-4 col-lg-4 quickAccess">
+                        <h6>Quotation Form</h6>
+                        Proposed prices of goods and services
+                        <a href="{% url 'quotationForm' %}"><button class="btn btn-primary home1"><i class="fa fa-arrow-right" aria-hidden="true"></i></button></a>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4 quickAccess">
+                        <h6>Sales Invoice</h6>
+                        Legal proof of sale or transfer of goods
+                        <a href="{% url 'salesInvoiceForm' %}"><button class="btn btn-primary home1"><i class="fa fa-arrow-right" aria-hidden="true"></i></button></a>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        <h6>Delivery Receipt</h6>
+                        Confirmation of delivery to the customer
+                        <a href="{% url 'deliveryReceiptForm' %}"><button class="btn btn-primary home1"><i class="fa fa-arrow-right" aria-hidden="true"></i></button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-sm-12 col-md-3 col-lg-3 animate slide delay-6"></div> -->
+
+    </div>
+    <br><br><br><br>
+</div>
+<script>
+	let time = document.getElementById('time');
+	setInterval(function() {
+		let date = new Date();
+		time.innerHTML = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+	}, 1000);
+</script>
+{% endblock body %}

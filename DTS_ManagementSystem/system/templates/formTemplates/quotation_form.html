@@ -1,0 +1,160 @@
+{% load static %}
+
+<html>
+<head>
+	<title>Quotation Form</title>
+
+	<style>
+		body{
+			font-family: Verdana, sans-serif;			
+			font-size: 14px;
+			/* background-image: url('letter_head.png'); */
+			/* background-image:url('{% static "images/letter_head.png" %}'); */
+
+			background-repeat: no-repeat;
+			background-size: contain;
+			/* padding: 20px; */
+		}
+
+		@page {
+			size: 21.59cm 27.94cm;
+			margin: 5mm 10mm 2mm 10mm;
+			
+		}
+
+		.heading{
+			margin-top: 430px;
+		}
+
+		.attention{
+			margin-left: 50px;
+		}
+
+		.attention1{
+			margin-left: 125px;
+		}
+
+		.salutation{
+			margin-top: 50px;
+		}
+
+		.pic{
+			width:max-content;
+			float: center;
+		}
+
+		.footer{
+			position: fixed;
+			left: 0;
+			bottom: 0;
+		}
+
+		.smallFont{
+            font-size: 12px;
+        }
+
+		.noTop{
+            position: fixed !important;
+            top: 0 !important;
+            margin-top: 0 !important;
+        }
+	</style>
+</head>
+
+<body>
+
+	<div class="heading">
+
+		<img src="https://i.ibb.co/P67kcPq/letter-head.png" style="width: 816px;" class="pic">
+
+		<br><br><br>
+		{{ quotationForm.dateIssued|date:'Y-m-d' }}
+		<br>
+		<br><br>
+
+		<b>{{ quotationForm.companyName }}</b>
+		<br>
+		{{ quotationForm.companyAddress }}
+		<br>
+		Philippines
+	</div>
+
+	<br>
+	<div>
+		<b>Attention:</b> <span class="attention ">{{ quotationForm.receiverName }}</span>
+		<span class="attention1">
+			<br>{{ quotationForm.position }}
+		</span>
+	</div>
+
+	<div class="salutation">
+		<b>{{ quotationForm.quotationSubj }}</b>
+	</div>
+
+	<div class="salutation">
+		Dear {{ quotationForm.receiverName }},
+	</div>
+
+	<p>
+		Anent your requirements, we are pleased to quote the following:
+	</p>	
+
+	
+
+	<table class="requirementsTable">
+		<tr class="requirementsTable">
+			<td width="12%" class="requirementsTable requirementsHeader smallFont"><b>ITEM NO.</b></td>
+			<td width="3%" class="requirementsTable requirementsHeader smallFont"></td>
+			<td width="10%" class="requirementsTable requirementsHeader smallFont"><b>QTY</b></td>
+			<td width="3%" class="requirementsTable requirementsHeader smallFont"></td>
+			<td width="32%" class="requirementsTable requirementsHeader smallFont"><b>DESCRIPTION</b></td>
+			<td width="3%" class="requirementsTable requirementsHeader smallFont"></td>
+			<td width="17%" class="requirementsTable requirementsHeader smallFont"><b>UNIT PRICE</b></td>
+			<td width="3%" class="requirementsTable requirementsHeader smallFont"></td>
+			<td width="17%" class="requirementsHeader smallFont"><b>TOTAL AMOUNT</b></td>
+		</tr>
+		<tr></tr>
+		{% for item in assignedItem %}
+		<tr>
+			<td width="12%" class="requirementsTable leftSpace">{{ item.itemID.itemID }}</td>
+			<td width="3%" class="requirementsTable"></td>
+			<td width="10%" class="requirementsTable leftSpace">{{ item.itemQuantity }}</td>
+			<td width="3%" class="requirementsTable"></td>
+			<td width="32%" class="leftSpace"><b>{{ item.itemID.itemName }}</b></td>
+			<td width="3%" class="requirementsTable"></td>
+			<td width="17%" class="requirementsTable leftSpace"><b>{{ item.itemID.itemPrice }}</b></td>
+			<td width="3%" class="requirementsTable"></td>
+			<td width="17%" class="requirementsTable leftSpace"><b>{{ item.amount }}</b></td>
+		</tr>
+		{% endfor %}
+		<!-- <tr class="requirementsTable">
+			<td width="12%" class="requirementsTable leftSpace"></td>
+			<td width="3%" class="requirementsTable"></td>
+			<td width="10%" class="requirementsTable leftSpace"></td>
+			<td width="3%" class="requirementsTable"></td>
+			<td width="32%" class="leftSpace">
+				<ul>
+					<li>Repeater (1 X100 ft. and 1 X80 ft.) –  repainting of antenna mast including anchor and base plate.
+						Replacement of corroded guy wires, cable clips and turnbuckles. Conduct before and after SWR measurements.
+					</li>
+
+					<li>OHS (1 X80 ft.) – repainting of antenna mast including anchor and base plate.
+						Replacement of corroded guy wires, cable clips and turnbuckles. Conduct before and after SWR measurements.
+					</li>
+
+					<li>Ash Plant (1 X40 ft.) – repainting of antenna mast including anchor and base plate. Replacement of corroded guy wires, 
+						cable clips and turnbuckles. Conduct before and after SWR measurements.</li>
+				</ul>	
+			</td>
+			<td width="3%" class="requirementsTable"></td>
+			<td width="17%" class="requirementsTable leftSpace"></b></td>
+			<td width="3%" class="requirementsTable"></td>
+			<td width="17%" class="requirementsTable leftSpace"></td> -->
+
+	</table>
+
+
+	<img src="https://i.ibb.co/RSKxyN6/letter-head-footer.png" style="width: 816px;" class="footer">
+</body>
+</html>
+

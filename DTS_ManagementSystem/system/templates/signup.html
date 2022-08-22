@@ -1,0 +1,197 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Sign Up</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+    <script src="https://kit.fontawesome.com/c3481268b6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static '/css/login.css' %}">
+  </head>
+  <body>
+		
+		<div class="wrapper d-flex align-items-stretch">
+		
+
+		<div class="container justify-content-end">
+			
+			<div class="row sub2 justify-content-between">
+                <div class="col-sm-12 col-md-6 col-lg-6 animate slide delay-1">
+                  <!-- <img src="images/dts-logo.png" width="100%" class="dts-logo"> -->
+                </div>
+				<div class="col-sm-12 col-md-6 col-lg-6">
+                <h3 class="signInHeader animate slide delay-2"><i class="fa-solid fa-pen"></i>&nbsp;&nbsp;Sign Up</h3>
+                <div class="card animate slide delay-3">
+                    <form method="POST">
+                        {% csrf_token %}
+                            <br>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                    <label for="companyName" class="form-label">First Name</label>
+                                    {{ form.first_name }}
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                    <label for="companyName" class="form-label">Last Name</label>
+                                    {{ form.last_name }}
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <label for="companyName" class="form-label">Email</label>
+                                    {{ form.email }}
+                                </div>
+                            </div>
+                            <br><hr><br>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <label for="companyName" class="form-label">Username</label>
+                                    
+                                    {{ form.username }}
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <label for="companyName" class="form-label">Password&nbsp;&nbsp;
+                                        <a class="blankButton" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3">
+                                            <i class="fa-solid fa-circle-info" aria-expanded="true"></i>                                        
+                                        </a>
+                                    </label>
+                                    <div class="collapse" id="collapseExample3">
+                                        <div class="card1 card-body">
+                                            <b>Password Requirements:</b><br>
+                                            <ul>
+                                                <li>Your password must contain at least 8 characters.</li>
+                                                <li>Your password can't be too similar to your other personal information.</li>
+                                                <li>Your password can't be a commonly used password.</li>
+                                                <li>Your password can't be entirely numeric.</li>
+                                            </ul>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    {{ form.password1 }}
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <label for="companyName" class="form-label">Confirm Password&nbsp;&nbsp;
+                                        <a class="blankButton" data-bs-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample4">
+                                            <i class="fa-solid fa-circle-info" aria-expanded="true"></i>                                        
+                                        </a>                                    </label>
+                                    <div class="collapse" id="collapseExample4">
+                                        <div class="card1 card-body">
+                                            <b>Password Requirement:</b><br>
+                                            <ul>
+                                                <li>Enter the same password as above, for verification.</li>
+                                            </ul>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    {{ form.password2 }}
+                                   
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+                <p class="create animate slide delay-3">
+                    Already have an account? <a href="{% url 'login' %}">Log in</a>
+                </p>
+			</div>
+				
+			</div>
+            <br><br><br>
+
+		</div>
+
+        <!-- Alerts -->
+
+        <div class="fixed-top animate pop delay-2">
+            <!--div class="row alertRow justify-content-between">
+                <div class="col-sm-12 col-md-4 col-lg-4"></div>
+                <div class="col-sm-12 col-md-4 col-lg-4"></div>
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div-->
+
+            <div class="row alertRow justify-content-between">
+                <div class="col-sm-12 col-md-4 col-lg-4"></div>
+                <div class="col-sm-12 col-md-4 col-lg-4"></div>
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                    {% if form.errors %}
+                        {% for error in form.errors.username %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{error}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                        {% for error in form.errors.email %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{error}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                        {% for error in form.errors.password2 %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{error}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                        <br>
+                    {% endif %}
+                </div>
+            </div>
+            
+        </div>
+      
+	</div>
+    <script>
+      function password_show_hide() {
+        var x = document.getElementById("InputPassword");
+        var show_eye = document.getElementById("show_eye");
+        var hide_eye = document.getElementById("hide_eye");
+        hide_eye.classList.remove("d-none");
+        if (x.type === "password") {
+          x.type = "text";
+          show_eye.style.display = "none";
+          hide_eye.style.display = "block";
+        } else {
+          x.type = "password";
+          show_eye.style.display = "block";
+          hide_eye.style.display = "none";
+        }
+      }
+
+      function password_show_hide1() {
+        var x = document.getElementById("InputPassword1");
+        var show_eye = document.getElementById("show_eye1");
+        var hide_eye = document.getElementById("hide_eye1");
+        hide_eye.classList.remove("d-none");
+        if (x.type === "password") {
+          x.type = "text";
+          show_eye.style.display = "none";
+          hide_eye.style.display = "block";
+        } else {
+          x.type = "password";
+          show_eye.style.display = "block";
+          hide_eye.style.display = "none";
+        }
+      }
+      </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,308 @@
+{% extends 'base.html' %}
+{% block title %}Billing Invoice Form {% endblock %}
+{% load static %}
+{% block body %}
+<div class="container-fluid justify-content-end">
+	<form method="POST">
+		{% csrf_token %}
+		{{ form.errors }}
+		{{ form.non_field_errors }}
+
+		<div class="row main justify-content-between">
+			<div class="col-sm-12 col-md-6 col-lg-6">
+				<h3 class="pageHeader"><a href="{% url 'forms' %}"><span class="fa fa-arrow-circle-left mr-3"></span></a> Billing Invoice Form</h3>
+			</div>
+			<div class="col-sm-12 col-md-3 col-lg-3"></div>
+			<div class="col-sm-12 col-md-3 col-lg-3"></div>
+		</div>
+
+		
+		<div class="row sub justify-content-between">
+			<div class="card forms animate slide delay-1">
+				
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<h5 class="formSection1 forms"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;General Details</h5>								
+					</div>
+					<div class="col-sm-12 col-md-7 col-lg-7"></div>
+				</div>
+
+				<div class="row justify-content-between">
+					
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br>
+						<label for="companyName forms" class="form-label">Date Issued*</label>
+						<input type="date" class="form-control" id="dateIssued" name="dateIssued" aria-describedby="companyNameHelp" required>
+					</div>
+
+				</div>
+
+				<hr class="divider forms">
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<h5 class="formSection1 forms"><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;&nbsp;Client Details</h5>								
+					</div>
+					<div class="col-sm-12 col-md-7 col-lg-7"></div>
+				</div>
+
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br>
+						<input type="text" class="form-control" name="ClientNewProj" aria-describedby="companyNameHelp" id="ClientNewProjid" hidden>
+						<label for="companyName" class="form-label">Company Name*</label>
+						<select id="searchClientNewProj" name="ClientNewProj" style="width: 100%;" required>
+							{% for dat in clientProject %}
+								<option data-companytin="{{ dat.companyTIN }}" data-businessstyle="{{ dat.businessStyle }}" data-companyaddress="{{ dat.companyAddress }}" data-longadd="{{ dat.barangay }}, {{ dat.city }}, {{ dat.province }}, {{ dat.region }}, {{ dat.postalCode }}" value="{{ dat.id }}">{{ dat.companyName }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					
+					<div class="col-sm-12 col-md-6 col-lg-6"></div>
+				</div>
+
+				<div class="row justify-content-between">
+					
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br>
+						<label for="companyName" class="form-label">Business Style*</label>
+						<input type="text" class="form-control" name="businessStyle" aria-describedby="companyNameHelp" id="businessStyleNew" readonly>
+					</div>
+
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br>
+						<label for="companyName" class="form-label">TIN*</label>
+						<input type="text" class="form-control" name="NewProjTIN" id="NewProjTIN" aria-describedby="companyNameHelp" readonly>
+					</div>
+				</div>
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<br>
+						<label for="companyName" class="form-label">Company Address*</label>
+						<input type="text" class="form-control" name="companyAddress" aria-describedby="companyNameHelp" id="companyaddressNewProj" readonly>
+						<br>
+						<input type="text" class="form-control" name="companyAddress" aria-describedby="companyNameHelp" id="longaddressNewProj" readonly>
+					</div>
+				</div>
+
+				<hr class="divider forms">
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<h5 class="formSection1 forms"><i class="fa fa-archive" aria-hidden="true"></i>&nbsp;&nbsp;Particulars*</h5>
+					
+					</div>
+					<div class="col-sm-12 col-md-2 col-lg-2">
+						<!-- <h6 id="addRowBilling" class="addRowButton forms"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add Row</h6> -->
+
+						<a data-bs-toggle="modal" data-bs-target="#addItem"><button type="button" class="btn btn-primary docu"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;New Item</button></a>
+
+					</div>
+					<div class="col-sm-12 col-md-5 col-lg-5"></div>
+				</div>
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<br><br>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+								  <th>Item</th>
+								  <th>Price</th>
+								  <th>Quantity</th>
+								  <th>Unit</th>
+								  <th>Amount</th>
+								</tr>
+							</thead>
+							<tbody>								
+								{% for item in itemList %}
+								  <tr class="calc-row">
+									<td width="32%"><input type="text" value="{{ item.itemName }}" id="itemName" name="itemName" class="form-control" readonly></td>
+									<td width="17%"><input type="number" value="{{ item.itemPrice }}" onload="findAmount()" id="itemPrice" name="itemPrice" class="form-control" readonly></td>
+									<td width="17%"><input type="number" onkeydown="if(event.key==='.'){event.preventDefault();}" pattern="/^\d+$/" onchange="findAmount()" id="qty" name="qty" class="form-control"></td>
+									<td width="17%">
+										<select class="form-control" name="unit" required>
+											{% for dat in unit %}
+												<option value="{{ dat.unitID }}">{{ dat.unitName }}</option>
+											{% endfor %}
+										</select>
+									</td>
+
+									<td width="17%"><input type="number" onchange="findTotal()" id="amount" name="amount" class="form-control" readonly></td>
+								  </tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+		
+				<hr class="divider forms">
+				<div class="row  justify-content-between">
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<h5 class="formSection1 forms"><i class="fa-solid fa-calculator"></i>&nbsp;&nbsp;Calculations</h5>
+					
+					</div>
+
+					<div class="col-sm-12 col-md-7 col-lg-7"></div>
+				</div>
+
+				<div class="row  justify-content-between">
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br>
+						<label for="companyName" class="form-label calculationsLabel forms">Total Amount:&nbsp;&nbsp;</label>
+						<div class="form-check-inline forms">
+							<input type="text" id="total" name="total" class="form-control" readonly>
+						</div>
+					</div>
+				</div>
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br>
+						<label for="companyName" class="form-label calculationsLabel forms">Include Tax*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+						<div class="form-check form-check-inline forms">
+							<input class="form-check-input forms" type="radio" name="tax" id="inlineCheckbox1" value="option1" checked>
+							<label class="form-check-label forms" for="inlineCheckbox1">Yes</label>
+						</div>
+						<div class="form-check form-check-inline forms">
+							<input class="form-check-input forms" type="radio" name="tax" id="inlineCheckbox2" value="option2">
+							<label class="form-check-label forms" for="inlineCheckbox2">No</label>
+						</div>
+					</div>
+				</div>
+
+				<div id=taxInput>
+					<div class="row justify-content-between">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<br>
+							<label for="companyName" class="form-label calculationsLabel forms">Percentage (%):</label>
+							<div class="form-check-inline forms">
+								<input type="text" id="tax" name="tax" class="form-control">
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="row  justify-content-between">
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<hr class="divider1 forms">
+						<br>
+						<label for="companyName" class="form-label calculationsLabel forms">Grand Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+						<div class="form-check-inline forms">
+							<input type="text" id="grandTotal" name="grandTotal" class="form-control" readonly>
+						</div>
+					</div>
+				</div>
+
+				<hr class="divider forms">
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<h5 class="formSection1 forms"><i class="fa-solid fa-lock"></i>&nbsp;&nbsp;Terms*</h5>								
+					</div>
+					<div class="col-sm-12 col-md-7 col-lg-7">
+						<input type="text" class="form-control" id="terms" name="terms" aria-describedby="companyNameHelp" required>
+					</div>
+				</div>
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<br><br>
+						<h5 class="formSection1 forms"><i class="fa-solid fa-lock"></i>&nbsp;&nbsp;J.O No. / P.O No.*</h5>								
+					</div>
+					<div class="col-sm-12 col-md-7 col-lg-7">
+						<br><br>
+						<input type="text" class="form-control" id="jopoNum" name="jopoNum" aria-describedby="companyNameHelp" required>
+					</div>
+				</div>
+
+				<hr class="divider forms">
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<br><br>
+						<input name="submit" class="btn btn-primary forms" type="submit" value="Submit">
+					</div>
+				</div><br><br>
+			</div>
+		</div><br><br>
+	</form>
+
+	
+	<div class="modal fade" id="addItem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<form method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{ form.errors }}
+				{{ form.non_field_errors }}
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">New Item</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<div class="modal-body">
+						<div class="container-fluid">
+						
+							<div class="row">
+								<div class="col-md-3 ms-auto">Item</div>
+								<div class="col-md-9 ms-auto">
+									<!-- <input type="text" class="form-control" name="item" aria-describedby="companyNameHelp" id="item" hidden> -->
+									<select id="searchItem" style="width: 100%;" name="item" multiple=multiple required>
+										{% for dat in items %}
+											<option value="{{ dat.pk }}">{{ dat.itemName }}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary docu" data-bs-dismiss="modal">Close</button>
+						<button type="submit" name="addItem" class="btn btn-secondary blue docu">Add</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+</div>
+<script>
+	$("input#itemPrice, input#qty").keyup(function() {
+		var $row = $(this).closest("tr.calc-row");
+		var p = Number($row.find("#itemPrice").val());
+		var q = Number($row.find("#qty").val());
+		$row.find("#amount").val(parseFloat(p * q)).trigger('change');
+	});
+	function findTotal(){
+		var arr = document.getElementsByName('amount');
+		var tot=0;
+		for(var i=0;i<arr.length;i++){
+			if(parseFloat(arr[i].value))
+				tot += parseFloat(arr[i].value);
+		}
+		document.getElementById('total').value = parseFloat(tot);
+		var trigger = document.getElementById('total');
+		trigger.dispatchEvent(new Event('input', {bubbles:true}));
+	}
+	$("#total, #tax").on('input', function() {
+		var total = parseFloat($('#total').val());
+		var tax = parseFloat($('#tax').val());
+		document.getElementById('grandTotal').value = + parseFloat((total * tax) / 100 + total).toFixed(2)
+	});
+	$('input[type="radio"]').click(function() {
+		if($(this).attr('id') == 'inlineCheckbox1') {
+			$('#taxInput').show();
+			var element = document.getElementById('tax');
+			element.dispatchEvent(new Event('input', {bubbles:true}));
+       	}
+       	else {
+			$('#taxInput').hide();
+			document.getElementById('grandTotal').value = parseFloat($('#total').val())
+       	}
+	});
+</script>
+{% endblock body %}

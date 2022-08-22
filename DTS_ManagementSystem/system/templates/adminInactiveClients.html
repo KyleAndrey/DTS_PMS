@@ -1,0 +1,83 @@
+{% extends 'baseAdmin.html' %}
+{% block title %}Inactive Clients{% endblock %}
+{% load static %} 
+{% block body %}
+<div class="container-fluid justify-content-end">
+	<div class="row main justify-content-between">
+		<div class="col-sm-12 col-md-4 col-lg-4">
+			<h3 class="pageHeader"><i class="fa-solid fa-user-minus"></i>&nbsp;&nbsp;Inactive Clients
+
+			</h3>
+		</div>
+		<div class="col-sm-12 col-md-5 col-lg-5">
+			<!-- <div class="input-group">
+				<input type="text" class="form-control search" placeholder="Search..." aria-label="First name">
+				<button type="submit" class="buttonSearch fa-solid fa-magnifying-glass"></button>
+			</div> -->
+		</div>
+		<div class="col-sm-12 col-md-3 col-lg-3">
+		</div>
+	</div>
+	<br>
+	
+	<div class="row sub justify-content-between  animate slide delay-3">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<div class ="reportsList">
+				<table class="table table-hover" id="tableAll">
+					<thead>
+						<tr>
+							<th>TIN</th>
+							<th>Company Name</th>
+							<th>Business Style</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for client in inactiveClients %}
+							<tr>
+								<td>{{ client.companyTIN }}</td>
+								<td>{{ client.companyName }}</td>
+								<td>{{ client.businessStyle }}</td>
+								<td>
+									<button data-id="{{ client.pk }}" data-bs-toggle="modal" data-bs-target="#setasactive" id="removeRow" class="setCircle fa fa-plus-square circleButton-green setasactiveClass"></button>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div><br><br>
+	<div class="modal fade" id="setasactive" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<form method="POST">
+				{% csrf_token %}
+				{{ form.errors }}
+				{{ form.non_field_errors }}
+				<div class="modal-content">
+					<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Set Client as Active</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-12 ms-auto">
+									<label for="companyName" class="form-label">Are you sure you want to set the client as active?</label>
+									<br>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="text" class="form-control" id="clientID" name="id" hidden>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+						<button type="submit" name="inactiveDelete"  class="btn btn-secondary blue">Yes</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock body %}

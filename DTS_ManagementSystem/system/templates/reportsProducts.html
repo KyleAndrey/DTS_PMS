@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}Reports{% endblock %}
+{% load static %}
+{% block body %}
+<div class="container-fluid justify-content-end">
+	<form method="POST">
+		{% csrf_token %}
+			<div class="row main justify-content-between">
+				<div class="col-sm-12 col-md-3 col-lg-3">
+					<h3 class="pageHeader"><span class="fa-solid fa-chart-simple"></span>&nbsp;&nbsp;Reports&nbsp;&nbsp;
+
+					</h3>
+				</div>
+				<div class="col-sm-12 col-md-6 col-lg-6">
+					<!-- <div class="input-group">
+						<input type="text" class="form-control search" placeholder="Search..." aria-label="First name">
+						<button type="submit" class="buttonSearch fa-solid fa-magnifying-glass"></button>
+					</div> -->
+				</div>
+				<div class="col-sm-12 col-md-3 col-lg-3">
+          <a href="{% url 'reportsProductsPDF' %}">
+            <button class="btn btn-primary manageSend forms" type="button">
+              <i class="fa-solid fa-download"></i>&nbsp;&nbsp;Download
+            </button>
+          </a>
+				</div>
+			</div>
+			<br>
+
+        
+        <div class="row sub justify-content-between  animate slide delay-1">
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <ul class="nav nav-pills">
+              <li class="nav-item reportSpace">
+                <a class="nav-link docuCat docu" aria-current="page" href="{% url 'reports' %}">Projects</a>
+              </li> 
+              <li class="nav-item reportSpace">
+                  <a class="nav-link docuCat docu" aria-current="page" href="{% url 'reportsClients' %}">Clients</a>
+                </li>
+              <li class="nav-item reportSpace">
+                <a class="nav-link docuCat docu active" href="{% url 'reportsProducts' %}">Items</a>
+              </li>    
+            </ul>
+            <hr class="divider animate slide delay-2">
+          </div>
+			  </div>
+
+        <div class="row sub justify-content-between animate slide delay-3">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <div class ="reportsList">
+                <table class="table table-hover" id="tableAll">
+                  <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                  {% if item %}
+                    {% for it in item  %}
+                      <tr>
+                        <td>{{ it.itemID }}</td>
+                        <td>{{ it.itemName }}</td>
+                        <td>{{ it.itemPrice }}</td>
+                        <td>{% if it.is_inactive == False %}
+                              Active
+                            {% else %}
+                              Inactive
+                            {% endif %} 
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% endif %}
+                  </tbody>
+                </table>
+              </div>
+              
+            </div>
+            
+        </div>
+
+        
+        <br><br>
+	
+	</form>
+
+	
+</div>
+{% endblock body %}

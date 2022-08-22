@@ -1,0 +1,395 @@
+
+.card.forms{
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    border: none;
+    padding: 50px;
+    font-size: 14px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.cardManage.forms{
+    margin-top: 20px;
+    background-color: #f5f9ff;
+    border-radius: 20px;
+    border: none;
+    padding: 40px;
+    font-size: 14px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.form-control.forms{
+    border-radius: 15px;
+    font-size: 16px;
+}
+
+
+.divider.forms{
+    color: #2A7AF5;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.divider1.forms{
+    color: #2A7AF5;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.formSection.forms{
+    font-size: 17px;
+    color: #2A7AF5;
+    font-weight: bold;
+    width:fit-content;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: #D7E8FF;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.formSection1.forms{
+    font-size: 17px;
+    color: #2A7AF5;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: #D7E8FF;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+
+
+.reqColumn.forms{
+    color: #2A7AF5; 
+    font-weight: bold;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.reqCard.forms{
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    border: none;
+    padding: 15px;
+    font-size: 14px;
+}
+
+.reqCard.forms:hover{
+    background-color: #F2F6FF;
+    color: #2A7AF5;
+}
+
+.reqHeader.forms{
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    border: none;
+    padding: 15px;
+    font-size: 14px;
+}
+
+.fa-minus-square{
+    color: #F75201;
+    font-size: 20px;
+    float: center;
+}
+
+.fa-plus-square{
+    color: #6AC172;
+    font-size: 20px;
+    float: center;
+    text-align: center;
+}
+
+.addRowButton.forms{
+    font-size: 12px;
+    background-color: #0853C2;
+    width:fit-content;
+    padding: 8px;
+    border-radius: 8px;
+    color: #9CC3FA;
+    margin-top: 10px;
+    cursor: default;
+}
+
+.addRowButton.forms:hover{
+    background-color: #0c4aa7;
+    color: #F2F6FF;
+}
+
+/* label{
+    color: #2A7AF5; 
+    font-weight: bold;
+} */
+
+.btn-primary.forms{
+    background-color: #2A7AF5;
+    border: 1px solid transparent;
+    padding-right: 30px;
+    padding-left: 30px;
+    border-radius: 15px;
+    float: right;
+}
+
+.sendBack.forms{
+    float: left;
+}
+
+.manageReturn.forms{
+    float: left;
+    background-color: #D7E8FF;
+    color: #0c4aa7;
+    border: none;
+}
+
+.manageReturn.forms:hover{
+    background-color: #b9d4fa;
+    color: #0c4aa7;
+
+}
+
+
+.manageReturn1.forms{
+    float: right;
+    background-color: #D7E8FF;
+    color: #0c4aa7;
+    border: none;
+}
+
+.manageReturn1.forms:hover{
+    background-color: #b9d4fa;
+    color: #0c4aa7;
+
+}
+
+.manageForward.forms{
+    float: left;
+    background-color: #D7E8FF;
+    color: #0c4aa7;
+    border: none;
+}
+
+.manageForward.forms:hover{
+    background-color: #b9d4fa;
+    color: #0c4aa7;
+
+}
+
+.manageDownload.forms{
+    float: left;
+}
+
+.form-select.forms{
+    border-radius: 16px;
+    color: #777777;
+}
+
+input:disabled,
+input[disabled]{
+  border: none;
+  background-color: #F1F6FF !important;
+  color: #0853C2;
+}
+
+.paymentMethod.forms{
+    background-color: #0853C2;
+    border-radius: 12px;
+    color: #9CC3FA;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.alternative.forms{
+    background-color: #fff;
+    border-radius: 12px;
+    border: none;
+    color: #777777;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+
+.dropdown-toggle.forms:hover, .dropdown-toggle.forms:focus{
+    background-color: #0c4aa7;
+}
+
+.form-select.forms i{
+    color: #9CC3FA;
+}
+
+.form-select-sm.forms{
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 2px 10px;
+    border: none;
+}
+
+.fa-filter.forms{
+    font-size: 12px;
+}
+
+.filterOption.forms{
+    margin: 0;
+    display: inline-block;
+}
+
+
+.form-select-options.forms{
+    background-color: #D7E8FF;
+    color: #0853C2;
+    border-radius: 8px;
+    width: 100%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.form-check-inline.forms{
+    margin-left: 70px;
+}
+
+.calculationsLabel.forms{
+    font-size: 16px;
+}
+
+.dropdown-item.forms{
+    color: #0853C2;
+}
+
+.dropdown-item.forms:hover{
+    background-color: #e0edff;
+    color: #0853C2;
+    font-weight: bold;
+}
+
+.number.forms{
+    background-color: #0853C2;
+    padding: 3px;
+    padding-right: 30px;
+    padding-left: 30px;
+    border-radius: 10px;
+    color: #D7E8FF;
+    margin-top: 50px;
+}
+
+.alertRow.forms{
+    padding-top: 20px;
+    padding-right: 20px;
+}
+
+.alert.forms{
+    border-radius: 20px;
+}
+
+
+.animate{
+    animation-duration: 0.4s;
+    animation-duration: 0.4s;
+    animation-delay: 0.1s;
+    animation-name: animate-fade;
+    animation-timing-function: cubic-bezier(.26,.53,.74,1.48);
+    animation-fill-mode: backwards;
+}
+
+.animate.fade {
+    animation-name: animate-fade;
+    animation-timing-function: ease;
+  }
+  @keyframes animate-fade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+
+.animate.slide { animation-name: animate-slide; }
+@keyframes animate-slide {
+0% {
+opacity: 0;
+transform: translate(0,20px);
+}
+100% {
+    opacity: 1;
+    transform: translate(0,0);
+}
+}
+
+.animate.grow {
+    animation-name: animate-grow;
+  }
+  @keyframes animate-grow {
+    0% {
+      opacity: 0;
+      transform: scale(1, 0);
+      visibility: hidden;
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1, 1);
+    }
+}
+
+.animate.pop {
+    animation-name: animate-pop;
+  }
+  @keyframes animate-pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.5, 0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1, 1);
+    }
+}
+
+.delay-1 {
+    animation-delay: 0.2s;
+    }
+    .delay-2 {
+    animation-delay: 0.3s;
+    }
+    .delay-3 {
+    animation-delay: 0.4s;
+    }
+    .delay-4 {
+    animation-delay: 0.5s;
+    }
+    .delay-5 {
+    animation-delay: 0.6s;
+    }
+    .delay-6 {
+    animation-delay: 0.7s;
+    }
+    .delay-7 {
+    animation-delay: 0.8s;
+    }
+    .delay-8 {
+    animation-delay: 0.9s;
+    }
+    .delay-9 {
+    animation-delay: 1s;
+    }
+    .delay-10 {
+    animation-delay: 1.2s;
+    }
+    .delay-11 {
+    animation-delay: 1.3s;
+    }
+    .delay-12 {
+    animation-delay: 1.4s;
+    }
+    .delay-13 {
+    animation-delay: 1.5s;
+    }
+    .delay-14 {
+    animation-delay: 1.6s;
+    }
+    .delay-15 {
+    animation-delay: 1.7s;
+    }
+
+
+
+

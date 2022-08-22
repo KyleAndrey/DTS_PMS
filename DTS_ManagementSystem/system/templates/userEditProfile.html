@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block title %}Edit Profile{% endblock %}
+{% load static %}
+{% block body %}
+<div class="container-fluid justify-content-end">
+    <div class="row main justify-content-between">
+        <div class="col-sm-12 col-md-4 col-lg-4">
+            <h3 class="pageHeader"><a onclick="history.back()"><span class="fa fa-arrow-circle-left mr-3"></span></a> Edit Profile</h3>
+        </div>
+        <div class="col-sm-12 col-md-8 col-lg-8"></div>
+    </div>
+
+    <div class="row sub justify-content-between">
+        <div class="col-sm-12 col-md-8 col-lg-8">
+            <form method="POST">
+                {% csrf_token %}
+                    <div class="cardNewProject po animate slide delay-1">
+                        <div class="row justify-content-between">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                
+                                <h5 class="formSection1 po"><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;&nbsp;Personal Details</h5>								
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <br><br>
+                                <h5 class="profileHeader">First Name</h5>
+                                <input type="text" class="form-control" name="first_name" value="{{ user.first_name }}" aria-describedby="companyNameHelp" required>
+                            </div>
+                            
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <br><br>
+                                <h5 class="profileHeader">Last Name</h5>
+                                <input type="text" class="form-control" name="last_name" value="{{ user.last_name }}" aria-describedby="companyNameHelp" required>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <br><br>
+                                <h5 class="profileHeader">Contact Number</h5>
+                                <input type="tel" class="form-control" name="contactNumber" value="{{ user.contactNumber }}" aria-describedby="companyNameHelp" required>
+                            </div>
+                            
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <br><br>
+                                <h5 class="profileHeader">Email</h5>
+                                <input type="email" class="form-control" name="email" value="{{ user.email }}" aria-describedby="companyNameHelp" required>
+                            </div>
+                        </div>
+
+                        <hr class="dividerNewProject po">
+
+                        <div class="row justify-content-between">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <h5 class="formSection1 po"><i class="fa-solid fa-user-gear" aria-hidden="true"></i>&nbsp;&nbsp;Account Details</h5>								
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6"></div>
+                        </div>
+
+                        <div class="row justify-content-between">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <br><br>
+                                <h5 class="profileHeader">Department</h5>
+                                <input data-name="{{ user.department.id }}" id="currentDepartment" class="form-control" hidden>
+                                <select class="form-select" id="departmentEdit" name="departmentEdit" aria-label="Default select example" required>
+                                    {% for dat in departments %}
+                                        <option value="{{ dat.id }}">{{ dat.departmentName }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6"></div>
+                        </div>
+
+                        <hr class="dividerNewProject po">
+
+                        <div class="row justify-content-between">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <input class="btn btn-primary submitButton po" type="submit" value="Save Changes">
+                            </div>
+                        </div><br>
+                    </div>
+            </form>
+        </div>
+
+        <div class="col-sm-12 col-md-4 col-lg-4 illustration1">
+
+        </div>
+    </div>
+    <br><br><br><br>
+</div>
+{% endblock body %}

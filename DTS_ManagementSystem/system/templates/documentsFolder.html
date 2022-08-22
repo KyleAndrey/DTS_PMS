@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% block title %}Documents{% endblock %}
+{% load static %}
+{% block body %}
+<div class="container-fluid justify-content-end">
+	
+		<div class="row main justify-content-between">
+			<div class="col-sm-12 col-md-4 col-lg-4">
+				<h3 class="pageHeader"><a onclick="history.back()"><span class="fa fa-arrow-circle-left mr-3"></span></a> Project &nbsp;&nbsp;
+				</h3>
+			</div>
+			<div class="col-sm-12 col-md-6 col-lg-6">
+				<!-- <div class="input-group">
+					<input type="text" class="form-control search" placeholder="Search..." aria-label="First name">
+					<button type="submit" class="buttonSearch fa-solid fa-magnifying-glass"></button>
+				</div> -->
+			</div>
+			<div class="col-sm-12 col-md-2 col-lg-2">
+                <a data-bs-toggle="modal" data-bs-target="#uploadNewFile"><button type="button" class="btn btn-primary docu"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;New File</button></a>
+            </div>
+		</div>
+		<br>
+
+	
+	
+		<div class="row sub justify-content-between  animate slide delay-1">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <ul class="nav nav-pills">
+                <li class="nav-item reportSpace">
+                  <a class="nav-link docuCat docu" aria-current="page" href="{% url 'documentsCompanyReqs' %}">Company Requirements</a>
+                </li> 
+                <li class="nav-item reportSpace">
+                    <a class="nav-link docuCat docu active" aria-current="page" href="{% url 'documentsProjects' %}">Projects</a>
+                </li>
+                <li class="nav-item reportSpace">
+                    <a class="nav-link docuCat docu" aria-current="page" href="{% url 'documentsOthers' %}">Others</a>
+                </li>
+              </ul>
+              <hr class="divider animate slide delay-2">
+            </div>
+        </div>
+        
+        <div class="row sub justify-content-between  animate slide delay-3">
+            <div class="col-sm-12 col-md-12 col-lg-12">            
+                <div class ="reportsList">
+                    <table class="table table-hover" id="tableAll">
+                        <thead>
+                            <tr>
+                                <th>File Name</th>
+                                <th>Upload Date</th>
+                                <th>Manage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for dat in projectFiles %}
+                                <tr>
+                                    <td><span class="fa fa-file fa-file-blue" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;{{dat.taskFile|cut:'documents/'}}</td>
+                                    <td>{{dat.fileCreatedAt}}</td>
+                                    <td>
+                                        <a href="{{ dat.taskFile.url }}" download><i class="fa-solid fa-file-arrow-down"></i></a>									
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><br><br>
+    
+    
+
+    <div class="modal fade" id="uploadNewFile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Upload New File</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12 ms-auto">
+                                    <label for="companyName" class="form-label">New File</label>
+                                    <input type="file" class="form-control" id="inputGroupFile01" required>
+                                    <p class="formatDesc"><i>Format: CompanyName_DocumentName</i></p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 ms-auto">
+                                    <hr>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-3 ms-auto">Category</div>
+                                <div class="col-md-9 ms-auto">
+                                    <select id="searchCategory" style="width: 100%;" name="fileCategory">
+										{% for dat in categories %}
+											<option value="{{ dat.categoryName }}">{{ dat.categoryName }}</option>
+										{% endfor %}
+									</select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 ms-auto"><br>Content<br></div>
+                                <div class="col-md-9 ms-auto"><br>
+                                    <select id="searchContent" style="width: 100%;" name="fileContent">
+										{% for dat in contents %}
+											<option value="{{ dat.contentName }}">{{ dat.contentName }}</option>
+										{% endfor %}
+									</select>
+                                      <br>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 ms-auto">
+                                    <hr>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 ms-auto"><br>Tags<br></div>
+                                <div class="col-md-9 ms-auto"><br>
+                                    <select id="selectTag" multiple="multiple" style="width: 100%;">
+										{% for dat in tags %}
+											<option value="{{ dat.tagName }}">{{ dat.tagName }}</option>
+										{% endfor %}
+									</select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary docu" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-secondary blue docu">Upload</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteFile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form>
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete File</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12 ms-auto">
+                                    <label for="companyName" class="form-label">Are you sure you want to delete the file?</label>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary docu" data-bs-dismiss="modal">No</button>
+                        <button type="submit" class="btn btn-secondary blue docu">Yes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}

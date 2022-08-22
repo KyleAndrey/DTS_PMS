@@ -1,0 +1,197 @@
+{% extends 'baseAdmin.html' %}
+{% block title %}Project Type{% endblock %}
+{% load static %} 
+{% block body %}
+
+		<div class="container-fluid justify-content-end">
+			
+				<div class="row main justify-content-between">
+					<div class="col-sm-12 col-md-4 col-lg-4">
+						<h3 class="pageHeader"><i class="fa-solid fa-briefcase"></i>&nbsp; Project Type&nbsp;&nbsp;
+
+						</h3>
+					</div>
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<!-- <div class="input-group">
+							<input type="text" class="form-control search" placeholder="Search..." aria-label="First name">
+							<button type="submit" class="buttonSearch fa-solid fa-magnifying-glass"></button>
+						</div> -->
+					</div>
+					<div class="col-sm-12 col-md-3 col-lg-3">
+						<a data-bs-toggle="modal" data-bs-target="#add"><button type="button" class="btn btn-primary users"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;New Project Type</button></a>
+					</div>
+				</div>
+				<br>
+				
+				<div class="row sub justify-content-between  animate slide delay-3">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class ="reportsList">
+                            <table class="table table-hover" id="tableAll">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for dat in dataList %}
+                                        <tr>
+                                            <td>{{ dat.projectTypeID }}</td>
+                                            <td>{{ dat.projectTypeName }}</td>
+                                            <td>
+                                                {% if dat.is_inactive == False %}
+                                                Active
+                                                {% else %}
+                                                    Inactive
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <button data-id="{{ dat.projectTypeID }}" data-name="{{ dat.projectTypeName }}" data-bs-toggle="modal" data-bs-target="#editProjectType" id="editRow" class="fa-solid fa-pen projectTypeEditButton circleButton"></button>									
+                                                {% if dat.is_inactive == False %}
+                                                    <button data-id="{{ dat.projectTypeID }}" data-bs-toggle="modal" data-bs-target="#inactivate" id="removeRow" class="fa fa-minus-square projectTypeDeleteButton circleButton-red"></button>
+                                                {% else %}
+                                                    <button data-id="{{ dat.projectTypeID }}" data-bs-toggle="modal" data-bs-target="#activate" id="removeRow" class="fa fa-plus-square projectTypeDeleteButton circleButton-green"></button>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+				</div><br><br>
+
+                <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form method="POST">
+							{% csrf_token %}
+							{{ form.errors }}
+							{{ form.non_field_errors }}
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add Project Type</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+    
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4 ms-auto">Name</div>
+                                            <div class="col-md-8 ms-auto">
+                                                <input type="text" class="form-control" id="projectTypeName" name="projectTypeName">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" name="projectTypeAdd" class="btn btn-secondary blue">Add</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+			
+                <div class="modal fade" id="inactivate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form method="POST">
+							{% csrf_token %}
+							{{ form.errors }}
+							{{ form.non_field_errors }}
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Set Project as Inactive</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+    
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-12 ms-auto">
+                                                <label for="companyName" class="form-label">Are you sure you want to set the selected project type as inactive?</label>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                	<input type="text" class="form-control" id="projectTypeIDInactive" name="projectTypeID" hidden>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                    <button type="submit" name="projectTypeInactive" class="btn btn-secondary blue">Yes</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="activate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form method="POST">
+							{% csrf_token %}
+							{{ form.errors }}
+							{{ form.non_field_errors }}
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Set Project Type as Active</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+    
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-12 ms-auto">
+                                                <label for="companyName" class="form-label">Are you sure you want to set the selected project type as active?</label>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                	<input type="text" class="form-control" id="projectTypeIDActive" name="projectTypeID" hidden>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                    <button type="submit" name="projectTypeActive" class="btn btn-secondary blue">Yes</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="editProjectType" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form method="POST">
+							{% csrf_token %}
+							{{ form.errors }}
+							{{ form.non_field_errors }}
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Edit Project Type</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+    
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4 ms-auto">Name</div>
+                                            <div class="col-md-8 ms-auto">
+												<input type="text" class="form-control" id="projectTypeIDEdit" name="projectTypeID" hidden>
+                                                <input type="text" class="form-control" id="projectTypeNameEdit" name="projectTypeName">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" name="projectTypeEdit" class="btn btn-secondary blue">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+			
+		</div>
+	{% endblock body %}

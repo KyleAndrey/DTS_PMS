@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% block title %}New Client{% endblock %}
+{% load static %}
+{% block body %}
+<div class="container-fluid justify-content-end">
+	<div class="row main justify-content-between">
+		<div class="col-sm-12 col-md-4 col-lg-4">
+			<h3 class="pageHeader"><a onclick="history.back()"><span class="fa fa-arrow-circle-left mr-3"></span></a> New Client</h3>
+		</div>
+		<div class="col-sm-12 col-md-4 col-lg-4">
+			
+		</div>
+		<!--div class="col-sm-12 col-md-4 col-lg-4">
+			<h5 class="formSection2"><i class="fa fa-key" aria-hidden="true"></i>&nbsp;&nbsp;Client ID: 00001</h5>								
+		</div-->
+	</div>
+
+	<div class="row sub justify-content-between">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<div class="cardNewProject po animate slide delay-1">
+				<form method="POST">
+					{% csrf_token %}
+					{{ form.errors }}
+					{{ form.non_field_errors }}
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-5 col-lg-5">
+								
+								<h5 class="formSection1 po"><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;&nbsp;Client Details</h5>								
+							</div>
+							<div class="col-sm-12 col-md-7 col-lg-7"></div>
+						</div>
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<label for="companyName" class="form-label">Company Name*</label>
+								<input type="text" class="form-control po" name="companyName" aria-describedby="companyNameHelp" required>
+							</div>
+							
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<label for="companyName" class="form-label">Business Style*</label>
+								<!-- <input type="text" class="form-control" name="businessStyle" aria-describedby="companyNameHelp" required> -->
+								<select id="searchBusinessStyle" style="width: 100%;" name="businessStyle" required>
+									{% for dat in businessStyles %}
+									<option value="{{ dat.businessStyleID }}">{{ dat.businessStyleName }}</option>
+									{% endfor %}
+								</select>
+
+							</div>
+						</div>
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br><br>
+								<label for="companyName" class="form-label">Company Tin*</label>
+								<input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==12) return false;" class="form-control po" name="companyTIN" aria-describedby="companyNameHelp" required>
+							</div>
+							
+							<div class="col-sm-12 col-md-6 col-lg-6"></div>
+						</div>
+
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<br><br><br><br>
+								<label for="companyName" class="form-label">Street Name/Building/House Number*</label>
+								<input type="text" class="form-control" name="companyAddress" aria-describedby="companyNameHelp" required>
+							</div>
+						</div>
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<label for="searchCompanyRegion" class="form-label">Region*</label>
+								<select id="searchCompanyRegion" name="region" style="width: 100%;" placeholder="Region" required>
+									<option value=""></option>
+								</select>
+							</div>
+
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<label for="searchCompanyRegion" class="form-label">Province*</label>
+								<select id="searchCompanyProvince" name="province" style="width: 100%;" placeholder="Province" required>
+									<option value=""></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<label for="searchCompanyMunicipality" class="form-label">Municipality*</label>
+								<select id="searchCompanyMunicipality" name="city" style="width: 100%;" placeholder="Municipality" required>
+									<option value=""></option>
+								</select>
+							</div>
+
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<label for="searchCompanyBarangay" class="form-label">Barangay*</label>
+								<select id="searchCompanyBarangay" name="barangay" style="width: 100%;" placeholder="Barangay" required>
+									<option value=""></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<label for="companyName" class="form-label">Postal Code*</label>
+								<input type="text" class="form-control" name="postalCode" aria-describedby="companyNameHelp" required>
+							</div>
+
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								
+							</div>
+						</div>
+
+								
+								
+								
+
+
+						
+
+						<hr class="dividerNewProject po">
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-5 col-lg-5">
+								
+								<h5 class="formSection1 po"><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;&nbsp;Contact Person Details</h5>								
+							</div>
+							<div class="col-sm-12 col-md-7 col-lg-7"></div>
+						</div>
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<label for="companyName" class="form-label">Contact Person*</label>
+								<input type="text" class="form-control po" name="contactPerson" aria-describedby="companyNameHelp" required>
+							</div>
+							
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<label for="companyName" class="form-label">Contact Number*</label>
+								<input type="text" class="form-control po" name="contactNumber" aria-describedby="companyNameHelp" required>
+							</div>
+						</div>
+
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<br>
+								<label for="companyName" class="form-label">Position*</label>
+								<input type="text" class="form-control po" name="contactPosition" aria-describedby="companyNameHelp" required>
+							</div>
+							
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<!-- <br><br><br><br>
+								<label for="companyName" class="form-label">Business Style*</label>
+								<input type="text" class="form-control" id="companyName" aria-describedby="companyNameHelp" required> -->
+							</div>
+						</div>
+
+
+						<hr class="dividerNewProject po">
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<br>
+								<input class="btn btn-primary submitButton po" type="submit" value="Create">
+							</div>
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	
+	
+	
+	<br><br><br><br>
+</div>
+{% endblock body %}

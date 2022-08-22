@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block title %}Formal Letter {% endblock %}
+{% load static %}
+{% block body %}
+<div class="container-fluid justify-content-end">
+	<form method="POST">
+		{% csrf_token %}
+		{{ form.errors }}
+		{{ form.non_field_errors }}
+		<div class="row main justify-content-between">
+			<div class="col-sm-12 col-md-4 col-lg-4">
+				<h3 class="pageHeader"><a href="{% url 'forms' %}"><span class="fa fa-arrow-circle-left mr-3"></span></a> Formal Letter Form</h3>
+			</div>
+		</div>
+		{% if formalLetter %}
+
+		<div class="row sub justify-content-between animate slide delay-1">
+			<div class="cardManage forms">
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-3 col-lg-3">
+						<select class="form-select alternative" id="formalStatus" name="formalStatus" aria-label="Default select example" required>
+							<option selected disabled hidden value="{{ formalLetter.formalStatus }}">{{ formalLetter.formalStatus }}</option>
+							{% for dat in status %}
+								<option value="{{ dat.0 }}">{{ dat.1 }}</option>
+							{% endfor %}
+						</select>
+					</div>
+
+					<div class="col-sm-12 col-md-3 col-lg-3">
+						
+					</div>
+					<div class="col-sm-12 col-md-3 col-lg-3"></div>
+
+					<div class="col-sm-12 col-md-3 col-lg-3">
+						<a href="{% url 'formalLetterFormPDF' %}">
+							<button class="btn btn-primary manageSend forms" type="button">
+								<i class="fa-solid fa-download"></i>&nbsp;&nbsp;Download
+							</button>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row sub justify-content-between">
+			<div class="card forms animate slide delay-2">
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<h5 class="formSection1 forms"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;General Details</h5>								
+					</div>
+					<div class="col-sm-12 col-md-7 col-lg-7"></div>
+				</div>
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br><br>
+						<label for="companyName" class="form-label forms">Letter Subject*</label>
+						<input type="text" class="form-control" value="{{ formalLetter.formalSubj }}" id="formalSubj" name="formalSubj"aria-describedby="companyNameHelp" required>
+
+					</div>
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br><br>
+						<label for="companyName" class="form-label forms">Date Issued*</label>
+						<input type="date" class="form-control" value="{{ formalLetter.dateIssued|date:'Y-m-d' }}" id="dateIssued" name="dateIssued" aria-describedby="companyNameHelp" required>
+					</div>
+				</div>
+
+				<hr class="divider forms">
+					
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<h5 class="formSection1 forms"><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;&nbsp;Client Details</h5>								
+					</div>
+					<div class="col-sm-12 col-md-7 col-lg-7"></div>
+				</div>
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<br>
+						<label for="companyName" class="form-label forms">Company Name*</label>
+						<input type="text" class="form-control" value="{{ formalLetter.companyName }}" id="companyName" name="companyName" aria-describedby="companyNameHelp" required>
+					</div>
+					<div class="col-sm-12 col-md-6 col-lg-6"></div>
+				</div>
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<br>
+						<label for="companyName" class="form-label">Company Address*</label>
+						<input type="text" class="form-control" value="{{ formalLetter.companyAddress }}" id="companyAddress" name="companyAddress" aria-describedby="companyNameHelp" required>
+					</div>
+				</div>
+
+				<br><br><br>
+
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<label for="companyName" class="form-label">Receiver's Name*</label>
+						<input type="text" class="form-control" value="{{ formalLetter.receiverName }}" id="receiverName" name="receiverName" aria-describedby="companyNameHelp" required>
+					</div>
+					<div class="col-sm-12 col-md-6 col-lg-6">
+						<label for="companyName" class="form-label">Position*</label>
+						<input type="text" class="form-control" value="{{ formalLetter.position }}" id="position" name="position" aria-describedby="companyNameHelp" required>
+					</div>
+				</div>
+
+				<hr class="divider forms">
+
+				<div class="row  justify-content-between">
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<h5 class="formSection1 forms"><i class="fa fa-align-left" aria-hidden="true"></i>&nbsp;&nbsp;Body*</h5>
+					
+					</div>
+					<div class="col-sm-12 col-md-7 col-lg-7">
+					</div>
+				</div>
+
+				<div class="row  justify-content-between">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<br>
+						<textarea class="form-control" id="body" name="body" rows="10" required>{{ formalLetter.body }}</textarea>
+					</div>
+				</div>
+
+				<hr class="divider forms">
+				<div class="row justify-content-between">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<br><br>
+						<input class="btn btn-primary forms" type="submit" value="submit">
+					</div>
+				</div><br><br>
+			</div>
+		</div><br><br>
+
+		{% endif %}
+
+	</form>
+</div>
+{% endblock body %}
