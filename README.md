@@ -2,7 +2,7 @@
 DTS Project Management System
 
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Django?color=%23386e9d&label=Python&logo=python&logoColor=%23ffcf3f)
-![GitHub repo size](https://img.shields.io/github/repo-size/KyleAndrey/DTS_PMS?label=Size)
+![GitHub repo size](https://img.shields.io/github/repo-size/KyleAndrey/DTS_PMS?label=size)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/KyleAndrey/DTS_PMS/main?color=%230f3e2e&logo=git&logoColor=white)
 ![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FKyleAndrey%2FDTS_PMS&label=Visitors&countColor=%23263759&style=flat)
 
